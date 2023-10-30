@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/W_yekan.TTF) format("truetype");
+}
+
+@font-face {
+    font-family: Yekan;
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/W_yekan_Bold.TTF) format("truetype");
+}
+
+.hideScroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hideScroll::-webkit-scrollbar {
+    display: none;
+}
