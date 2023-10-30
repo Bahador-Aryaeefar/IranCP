@@ -1,6 +1,6 @@
 <template>
     <div>
-        personal
+        <Personal></Personal>
     </div>
 </template>
 
