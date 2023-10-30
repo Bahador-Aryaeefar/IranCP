@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Personal></Personal>
+        <Personal class="mt-20"></Personal>
     </div>
 </template>
 

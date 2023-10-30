@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-8 justify-between text-black text-lg mt-6 text-center">
+                    <div class="flex items-center gap-16 justify-center text-black text-lg mt-6 text-center">
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 rounded-full bg-[#E74C8A]"></div>
                             <div>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-8 justify-between text-black text-lg mt-6 text-center">
+                    <div class="flex items-center gap-16 justify-center text-black text-lg mt-6 text-center">
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 rounded-full bg-[#A7DA42]"></div>
                             <div>
