@@ -1,11 +1,11 @@
 <template>
-    <div dir="rtl" class="font-Yekan pb-[30rem] max-w-[100rem] mx-auto">
+    <div dir="rtl" class="font-Yekan max-w-[100rem] mx-auto">
         <MainNavbar></MainNavbar>
         <div class="h-16"></div>
         <div class="flex">
             <MainSidebar></MainSidebar>
             <div class="w-[20rem] shrink-0"></div>
-            <div class="grow z-[1]">
+            <div class="grow z-[1] overflow-auto">
                 <slot />
             </div>
         </div>
