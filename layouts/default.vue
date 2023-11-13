@@ -1,14 +1,6 @@
 <template>
-    <div dir="rtl" class="font-Yekan">
-        <MainNavbar></MainNavbar>
-        <div class="h-16"></div>
-        <div class="flex">
-            <MainSidebar></MainSidebar>
-            <div class="w-[20rem] shrink-0"></div>
-            <div class="grow z-[1] overflow-auto">
-                <slot />
-            </div>
-        </div>
+    <div dir="rtl" class="font-Yekan max-w-[100rem] mx-auto">
+        <slot />
 
         <div v-if="toast.showError.value"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
@@ -49,7 +41,7 @@
 <script setup>
 useHead({
     bodyAttrs: {
-        class: 'bg-[#F5F6FA]'
+        class: 'bg-[#57C5C6]'
     }
 })
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed right-0 left-0 top-0 pt-[4.5rem] pb-2 h-[100vh] w-full max-w-[100rem] mx-auto">
+    <div class="fixed right-0 left-0 top-0 pt-[4.5rem] pb-2 h-[100vh] w-full">
         <div class="bg-white h-full w-[20rem] flex flex-col justify-between">
             <div class="text-black text-lg p-6 pt-10">
                 <a href="/" class="flex rounded-full h-10 items-center cursor-pointer gap-1" :class="route.path == '/' ? 'bg-[#F5F6FA] shadow-md' : ''">

@@ -24,7 +24,7 @@
             </div> -->
         </div>
 
-        <div class="overflow-auto w-full h-[calc(100vh-20rem)]">
+        <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
             <table class="w-full mt-4 border-spacing-[1rem] border-separate">
                 <thead class="text-white font-bold text-lg whitespace-nowrap">
                     <th>شماره</th>
@@ -40,7 +40,7 @@
                     <th>جزئیات</th>
                 </thead>
 
-                <tbody  class="text-black font-bold text-lg whitespace-nowrap">
+                <tbody  class="text-black font-bold text-lg whitespace-nowrap text-center">
                     <td>1402029</td>
                     <td>جدید</td>
                     <td>افزایش انگیزه یادگیری هنرجویان یازدهم فتوگرافیک</td>
@@ -57,6 +57,10 @@
         </div>
     </div>
 </template>
+
+<script setup>
+const research = useResearches()
+</script>
 
 <style scoped>
 th {
