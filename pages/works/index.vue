@@ -1,6 +1,6 @@
 <template>
     <div>
-        works
+        <Researches class="mt-10"></Researches>
     </div>
 </template>
 

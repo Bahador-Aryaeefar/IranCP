@@ -138,7 +138,7 @@
 
 <script setup>
 
-const stats = ref([758, 200, 300])
+const stats = ref([1000, 2000, 300])
 const total = computed(() => stats.value.map((x) => x / stats.value.reduce((a, b) => a + b) * 100))
 const ranks = computed(() => {
     let temp = []

@@ -9,7 +9,7 @@
 
                 <hr class="border-[#08B3B9] my-2">
                 
-                <a href="/personal" :class="route.path == '/personal' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer">
+                <!-- <a href="/personal" :class="route.path == '/personal' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer">
                     <img class="h-6 mt-1 mx-3.5" src="/icons/main/personal.svg" alt="personal">
                     پرسنل اجرایی
                 </a>
@@ -35,7 +35,7 @@
                     تجربه های برتر
                 </a>
 
-                <hr class="border-[#08B3B9] my-2">
+                <hr class="border-[#08B3B9] my-2"> -->
                 
                 <a href="/works" :class="route.path == '/works' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer gap-2">
                     <img class="h-8  mr-2" src="/icons/main/edit.svg" alt="edit">
@@ -44,7 +44,7 @@
 
                 <hr class="border-[#08B3B9] my-2">
                 
-                <a href="/users" :class="route.path == '/users' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer gap-1.5">
+                <!-- <a href="/users" :class="route.path == '/users' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer gap-1.5">
                     <img class="h-8 mr-2" src="/icons/main/profile.svg" alt="profile">
                     کاربران
                 </a>
@@ -56,7 +56,7 @@
                     تنظیمات
                 </a>
 
-                <hr class="border-[#08B3B9] my-2">
+                <hr class="border-[#08B3B9] my-2"> -->
             </div>
 
             <div class="text-center text-lg text-[#00000065] pb-6">
