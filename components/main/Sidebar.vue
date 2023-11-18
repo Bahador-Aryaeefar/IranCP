@@ -2,10 +2,10 @@
     <div class="fixed right-0 left-0 top-0 pt-[4.5rem] pb-2 h-[100vh] w-full">
         <div class="bg-white h-full w-[20rem] flex flex-col justify-between">
             <div class="text-black text-lg p-6 pt-10">
-                <a href="/" class="flex rounded-full h-10 items-center cursor-pointer gap-1" :class="route.path == '/' ? 'bg-[#F5F6FA] shadow-md' : ''">
+                <NuxtLink to="/" class="flex rounded-full h-10 items-center cursor-pointer gap-1" :class="route.path == '/' ? 'bg-[#F5F6FA] shadow-md' : ''">
                     <img class="h-8" src="/icons/main/reports.svg" alt="reports">
                     گزارش ها
-                </a>
+                </NuxtLink>
 
                 <hr class="border-[#08B3B9] my-2">
                 
@@ -37,10 +37,10 @@
 
                 <hr class="border-[#08B3B9] my-2"> -->
                 
-                <a href="/works" :class="route.path == '/works' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer gap-2">
+                <NuxtLink to="/researches" :class="route.path == '/researches' ? 'bg-[#F5F6FA] shadow-md' : ''" class="flex rounded-full h-10 items-center cursor-pointer gap-2">
                     <img class="h-8  mr-2" src="/icons/main/edit.svg" alt="edit">
                     آثار
-                </a>
+                </NuxtLink>
 
                 <hr class="border-[#08B3B9] my-2">
                 

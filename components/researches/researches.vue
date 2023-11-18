@@ -27,31 +27,35 @@
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
             <table class="w-full mt-4 border-spacing-[1rem] border-separate">
                 <thead class="text-white font-bold text-lg whitespace-nowrap">
-                    <th>شماره</th>
-                    <th>وضعیت</th>
-                    <th>عنوان</th>
-                    <th>رشته</th>
-                    <th>تاریخ ثبت</th>
-                    <th>مجری و مشاور</th>
-                    <th>داور اول</th>
-                    <th>داور دوم</th>
-                    <th>امتیاز استان</th>
-                    <th>امتیاز کشور</th>
-                    <th>جزئیات</th>
+                    <tr>
+                        <th>شماره</th>
+                        <th>وضعیت</th>
+                        <th>عنوان</th>
+                        <th>رشته</th>
+                        <th>تاریخ ثبت</th>
+                        <th>مجری و مشاور</th>
+                        <th>داور اول</th>
+                        <th>داور دوم</th>
+                        <th>امتیاز استان</th>
+                        <th>امتیاز کشور</th>
+                        <th>جزئیات</th>
+                    </tr>
                 </thead>
 
-                <tbody  class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <td>1402029</td>
-                    <td>جدید</td>
-                    <td>افزایش انگیزه یادگیری هنرجویان یازدهم فتوگرافیک</td>
-                    <td>هنر - گرافیک</td>
-                    <td>1402/07/21</td>
-                    <td>قصرشیرین</td>
-                    <td>بهرام صفری</td>
-                    <td>سعید جلالوندی</td>
-                    <td>امیر مرادی</td>
-                    <td></td>
-                    <td></td>
+                <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
+                    <tr @click="navigateTo('/researches/12')">
+                        <td>1402029</td>
+                        <td>جدید</td>
+                        <td>افزایش انگیزه یادگیری هنرجویان یازدهم فتوگرافیک</td>
+                        <td>هنر - گرافیک</td>
+                        <td>1402/07/21</td>
+                        <td>قصرشیرین</td>
+                        <td>بهرام صفری</td>
+                        <td>سعید جلالوندی</td>
+                        <td>امیر مرادی</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -60,6 +64,7 @@
 
 <script setup>
 const research = useResearches()
+research.getResearches()
 </script>
 
 <style scoped>

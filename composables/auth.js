@@ -37,7 +37,8 @@ export const useAuth = () => {
                 // Handle the response errors 
                 toast.addError("Login: " + response._data.data)
             },
-            initialCache: false,
+            initialCache: false, 
+            server: false
         })
     }
 
@@ -67,7 +68,8 @@ export const useAuth = () => {
                 // Handle the response errors 
                 toast.addError("Register: " + response._data.data)
             },
-            initialCache: false
+            initialCache: false, 
+            server: false
         })
     }
 
@@ -97,7 +99,8 @@ export const useAuth = () => {
                 // Handle the response errors 
                 toast.addError("RegisterTeacher: " + response._data.data)
             },
-            initialCache: false
+            initialCache: false, 
+            server: false
         })
     }
 
