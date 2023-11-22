@@ -23,11 +23,8 @@
                 </div>
             </div>
 
-            <UiSelect v-if="!isLogin" class="mt-10 w-[13.25rem] mx-auto" :value="role" @pick="((picked) => role = picked)"
-                placeHolder="نقش" :items="['بیننده', 'دبیر']"></UiSelect>
-
             <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
-                <div class="h-14 w-[18rem] relative">
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
                     <input id="email" v-model="email"
                         :class="(isConfirmed && !email) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
@@ -41,37 +38,86 @@
                         type="text" placeholder="نام">
                 </div>
 
-                <div v-if="!isLogin && type == 2" class="h-14 w-[18rem] relative">
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
                     <input id="lastname" v-model="lastName"
                         :class="(isConfirmed && !lastName) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
                         type="text" placeholder="نام خانوادگی">
                 </div>
 
+                <div class="h-14 w-[18rem] relative">
+                    <input id="code" v-model="code"
+                        :class="(isConfirmed && !code) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="کد پرسنلی">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="national" v-model="national"
+                        :class="(isConfirmed && !national) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="کد ملی">
+                </div>
+
                 <UiSelect v-if="!isLogin" class="w-[18rem]" :value="gender" :error="isConfirmed && !gender"
                     @pick="((picked) => gender = picked)" placeHolder="جنسیت" :items="['مرد', 'زن']"></UiSelect>
 
-                <UiSelect v-if="!isLogin && type == 2" class="w-[18rem]" :value="province" :error="isConfirmed && !province"
+                <UiSelect v-if="!isLogin" class="w-[18rem]" :value="province" :error="isConfirmed && !province"
                     @pick="((picked) => province = picked)" placeHolder="استان"
                     :items="cities.provinces.value.map(x => x.title)" :isInput="true" :strict="true"></UiSelect>
 
-                <UiSelect v-if="!isLogin && type == 2" class="w-[18rem]" :value="city" @pick="((picked) => city = picked)"
+                <UiSelect v-if="!isLogin" class="w-[18rem]" :value="city" @pick="((picked) => city = picked)"
                     :error="isConfirmed && !city" placeHolder="شهر"
                     :items="(province ? cities.cities.value.filter(x => x.parent == provinceID.id).map(x => x.title) : [])"
                     :isInput="true" :strict="true"></UiSelect>
 
-                <div v-if="!isLogin && type == 2" class="h-14 w-[18rem] relative">
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="degree" v-model="degree"
+                        :class="(isConfirmed && !degree) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="مدرک تحصیلی">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="discipline" v-model="discipline"
+                        :class="(isConfirmed && !discipline) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="رشته تحصیلی">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="experience" v-model="experience"
+                        :class="(isConfirmed && !experience) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="سابقه کار">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="position" v-model="position"
+                        :class="(isConfirmed && !position) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="سمت فعلی">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="positionHistory" v-model="positionHistory"
+                        :class="(isConfirmed && !positionHistory) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="سابقه سمت فعلی">
+                </div>
+
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
                     <input id="phone" v-model="mobile"
                         :class="(isConfirmed && !mobile) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
                         type="text" placeholder="شماره تلفن">
                 </div>
 
-                <div v-if="!isLogin && type == 2" class="h-14 w-[18rem] relative">
-                    <input id="code" v-model="code"
-                        :class="(isConfirmed && !code) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
+                    <input id="serviceDate" v-model="serviceDate"
+                        :class="(isConfirmed && !serviceDate) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                        type="text" placeholder="کد پرسنلی">
+                        type="text" placeholder="شروع کار">
                 </div>
 
                 <div class="h-14 w-[18rem] relative">
@@ -123,7 +169,14 @@ const password = ref("")
 const confirm = ref("")
 const isPass = ref(true)
 const isConfirmed = ref(false)
-const role = ref('بیننده')
+
+const degree = ref("")
+const discipline = ref("")
+const experience = ref("")
+const position = ref("")
+const positionHistory = ref("")
+const serviceDate = ref("")
+const national = ref("")
 
 const cities = useCities()
 cities.getCities()
@@ -134,6 +187,7 @@ const cityID = computed(() => city.value ? cities.cities.value.filter(x => x.tit
 const province = ref("")
 const provinceID = computed(() => province.value ? cities.provinces.value.filter(x => x.title == province.value)[0] : null)
 const gender = ref("")
+
 const genderID = computed(() => {
     switch (gender.value) {
         case 'مرد':
@@ -147,20 +201,9 @@ const genderID = computed(() => {
 const mobile = ref("")
 const code = ref("")
 
-
-const type = computed(() => {
-    switch (role.value) {
-        case 'بیننده':
-            return 1
-        case 'دبیر':
-            return 2
-    }
-})
-
 const auth = useAuth()
 const getAuth = () => {
     if (isLogin.value) login()
-    else if (type.value == 1) register()
     else registerTeacher()
 }
 
@@ -168,13 +211,13 @@ const login = () => {
     isConfirmed.value = true
     let isValid = true
 
-    if (!email.value) isValid = false
+    if (!code.value) isValid = false
     if (!password.value) isValid = false
 
     if (!isValid) return
 
     const req = {
-        email: email.value,
+        personal_code: code.value,
         password: password.value
     }
 
@@ -220,6 +263,15 @@ const registerTeacher = () => {
     if (!password.value) isValid = false
     if (password.value != confirm.value) isValid = false
 
+    if (!degree.value) isValid = false
+    if (!discipline.value) isValid = false
+    if (!experience.value) isValid = false
+    if (!position.value) isValid = false
+    if (!positionHistory.value) isValid = false
+    if (!serviceDate.value) isValid = false
+    if (!national.value) isValid = false
+
+
     if (!isValid) return
 
     const req = {
@@ -231,7 +283,15 @@ const registerTeacher = () => {
         mobile: mobile.value,
         personal_code: code.value,
         email: email.value,
-        password: password.value
+        password: password.value,
+
+        degree_education: degree.value,
+        discipline: discipline.value,
+        work_experience: experience.value,
+        current_position: position.value,
+        history_current_position: positionHistory.value,
+        service_start_date: serviceDate.value,
+        national_code: national.value,
     }
 
     console.log(req)

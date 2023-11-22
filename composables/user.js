@@ -3,6 +3,8 @@ export const useUser = () => {
     const toast = useToast()
     const user = useState('user', () => null)
     const coords = useState('coords', () => null)
+    const teacher = useState('teacher', () => null)
+
 
     const getUser = async (req) => {
         await useFetch('https://api.37pajoohesh.ir/api/getUser', {
@@ -34,9 +36,39 @@ export const useUser = () => {
                 const auth = useAuth()
                 auth.logout("")
             },
-            initialCache: false,
+            initialCache: false
         })
     }
 
-    return { getUser, user, coords }
+    const getTeacher = async (id) => {
+        teacher.value = null
+        await useFetch(`https://api.37pajoohesh.ir/api/profile/${id}`, {
+            onRequest({ request, options }) {
+                console.log('get teacher')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'GET'
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.addError("teacher: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    teacher.value =  response._data
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("teacher: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    return { getUser, user, coords,teacher,getTeacher }
 }

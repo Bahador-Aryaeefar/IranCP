@@ -1,13 +1,14 @@
-export const useResearches = () => {
+export const useExpert = () => {
     const cookie = useCookie('token')
     const toast = useToast()
-    const researches = useState('researches', () => null)
-    const research = useState('research', () => null)
+    const users = useState('users', () => null)
 
-    const getResearches = async (req) => {
-        await useFetch('https://api.37pajoohesh.ir/api/expert/research', {
+
+    const getUsers = async (req) => {
+        users.value = null
+        await useFetch('https://api.37pajoohesh.ir/api/expert/users', {
             onRequest({ request, options }) {
-                console.log('researches')
+                console.log('get users')
                 options.headers = {
                     "Accept": "application/json"
                 }
@@ -16,53 +17,60 @@ export const useResearches = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
-                toast.addError("Researches: " + error)
+                toast.addError("Users: " + error)
+                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
-                    researches.value = response._data
+                    users.value = response._data
                 }
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.addError("Researches: " + response._data.data)
+                toast.addError("Users: " + response._data.data)
+                const auth = useAuth()
+                auth.logout()
             },
             initialCache: false,
             server: false
         })
     }
 
-    const getResearch = async (id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
+    const changeUser = async (req, id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
             onRequest({ request, options }) {
-                console.log('research')
+                console.log('get users')
                 options.headers = {
                     "Accept": "application/json"
                 }
-                options.method = 'GET'
+                options.method = 'PUT'
+                options.body = req
                 options.headers.Authorization = 'Bearer ' + cookie.value
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
-                toast.addError("research: " + error)
+                toast.addError("Users: " + error)
+                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
-                    research.value = response._data
+                    getUsers()
                 }
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.addError("research: " + response._data.data)
+                toast.addError("Users: " + response._data.data)
+                const auth = useAuth()
+                auth.logout()
             },
             initialCache: false,
             server: false
         })
     }
 
-    return { getResearches, researches, research, getResearch }
+    return { users, getUsers, changeUser }
 }

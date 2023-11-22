@@ -29,7 +29,7 @@ export const useAuth = () => {
                 // Process the response data    return response._data
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
-                    cookie.value = response._data.data.token
+                    cookie.value = response._data
                     navigateTo('/')
                 }
             },
@@ -37,7 +37,7 @@ export const useAuth = () => {
                 // Handle the response errors 
                 toast.addError("Login: " + response._data.data)
             },
-            initialCache: false, 
+            initialCache: false,
             server: false
         })
     }
@@ -68,8 +68,7 @@ export const useAuth = () => {
                 // Handle the response errors 
                 toast.addError("Register: " + response._data.data)
             },
-            initialCache: false, 
-            server: false
+            initialCache: false
         })
     }
 
@@ -91,15 +90,47 @@ export const useAuth = () => {
                 // Process the response data    return response._data
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
-                    cookie.value = response._data.token
-                    navigateTo('/')
+                    // cookie.value = response._data
+                    // navigateTo('/')
                 }
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
                 toast.addError("RegisterTeacher: " + response._data.data)
             },
-            initialCache: false, 
+            initialCache: false,
+            server: false
+        })
+    }
+
+    const update = async (req) => {
+        await useFetch('https://api.37pajoohesh.ir/api/user/update', {
+            onRequest({ request, options }) {
+                console.log('register teacher')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'PUT'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.addError("RegisterTeacher: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    // cookie.value = response._data
+                    // navigateTo('/')
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("RegisterTeacher: " + response._data.data)
+            },
+            initialCache: false,
             server: false
         })
     }
@@ -111,5 +142,5 @@ export const useAuth = () => {
         navigateTo('/auth')
     }
 
-    return { login, register, registerTeacher, isLogin, logout }
+    return { login, register, registerTeacher, isLogin, logout, update }
 }
