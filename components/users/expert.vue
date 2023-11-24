@@ -43,8 +43,8 @@
                         <td>{{ item.personal_code }}</td>
                         <td>{{ item.national_code }}</td>
                         <td>{{ genders[item.gender] }}</td>
-                        <td>{{ cities.searchProvince(item.province_id).title }}</td>
-                        <td>{{ cities.searchCity(item.city_id).title }}</td>
+                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
+                        <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ item.degree_education }}</td>
                         <td>{{ item.discipline }}</td>
                         <td>{{ item.work_experience }}</td>
@@ -54,11 +54,11 @@
                         <td>{{ item.service_start_date }}</td>
                         <td class="flex gap-6">
                             <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 0},item.id)">
-                                <UiRadioButton :isSelected="!item.status"></UiRadioButton>
+                                <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
                                 عدم تایید
                             </div>
                             <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 1},item.id)">
-                                <UiRadioButton :isSelected="item.status"></UiRadioButton>
+                                <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
                                 تایید
                             </div>
                         </td>

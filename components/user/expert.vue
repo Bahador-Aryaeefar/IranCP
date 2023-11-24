@@ -83,27 +83,28 @@
         <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0] max-w-[50rem] mx-auto"></div>
         <div class="flex bg-white rounded-full gap-6 w-fit mx-auto py-4 px-10 mt-6 text-2xl">
             <div class="flex gap-2 items-center cursor-pointer" @click="expert.changeUser({ status: 0 }, user.id)">
-                <UiRadioButton :isSelected="!user.status"></UiRadioButton>
+                <UiRadioButton :isSelected="user.status == '0'"></UiRadioButton>
                 عدم تایید
             </div>
             <div class="flex gap-2 items-center cursor-pointer" @click="expert.changeUser({ status: 1 }, user.id)">
-                <UiRadioButton :isSelected="user.status"></UiRadioButton>
+                <UiRadioButton :isSelected="user.status == '1'"></UiRadioButton>
                 تایید
             </div>
+            {{ user.value }}
         </div>
 
     </div>
 </template>
 
 <script setup>
-const {id} = useRoute().params
+const { id } = useRoute().params
 const genders = ["مرد", "زن"]
 const cities = useCities()
 
 if (cities.cities.value == null) {
     cities.getCities()
 }
-const { user } = useExpert()
 const expert = useExpert()
+const { user } = useExpert()
 useExpert().getUser(id)
 </script>

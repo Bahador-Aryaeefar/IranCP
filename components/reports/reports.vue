@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-[72rem] mx-auto px-8">
-        <div
+        <div v-if="false"
             class="h-14 w-full px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
             اقدام پژوهی
             <img class="absolute left-10 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">

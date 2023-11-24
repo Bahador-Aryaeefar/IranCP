@@ -20,7 +20,6 @@
                         <th>نوع اثر</th>
                         <th>همکاران</th>
                         <th>چکیده اثر</th>
-                        <th>وضعیت</th>
                         <th>جزئیات</th>
                     </tr>
                 </thead>
@@ -34,18 +33,6 @@
                         <td>{{ types[item.individual] }}</td>
                         <td>{{ item.partners }}</td>
                         <td class="max-w-[20rem] truncate">{{ item.description }}</td>
-                        <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="expert.changeResearch({ expert_confirm: 0 }, item.id)">
-                                <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
-                                عدم تایید
-                            </div>
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="expert.changeResearch({ expert_confirm: 1 }, item.id)">
-                                <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
-                                تایید
-                            </div>
-                        </td>
                         <td class="text-[#08B3B9]">
                             <NuxtLink :to="`/researches/${item.id}`">مشاهده</NuxtLink>
                         </td>
@@ -57,9 +44,9 @@
 </template>
 
 <script setup>
-const expert = useExpert()
-expert.getResearches()
-const researches = computed(() => expert.researches.value)
+const referee = useReferee()
+referee.getResearches()
+const researches = computed(() => referee.researches.value)
 const categories = [
     'آموزش و یادگیری',
     'بهداشت و محیط زیست',

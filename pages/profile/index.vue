@@ -9,4 +9,6 @@ definePageMeta({
     layout: 'main',
     middleware: ["auth"]
 })
+
+const {user} = useUser()
 </script>
