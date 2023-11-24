@@ -2,7 +2,7 @@
     <nav
         class="h-[4rem] bg-[#57C5C6] flex items-center justify-between px-8 text-white text-xl fixed top-0 left-0 right-0 z-[2]">
         <div class="flex items-center gap-3">
-            <NuxtLink v-if="auth.isLogin()" to="/" class="hover:text-[#BCF5F1]">{{ user.user.value ?
+            <NuxtLink v-if="auth.isLogin()" to="/profile" class="hover:text-[#BCF5F1]">{{ user.user.value ?
                 (user.user.value.name + ' ' + ((user.user.value.last_name) ? user.user.value.last_name : '')) : '-' }}
             </NuxtLink>
             <NuxtLink v-else to="auth" class="cursor-pointer hover:text-[#BCF5F1]">ورود</NuxtLink>

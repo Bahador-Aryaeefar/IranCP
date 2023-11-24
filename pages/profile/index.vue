@@ -1,6 +1,6 @@
 <template>
-    <div class="pb-20">
-        <ResearchExpert class="mt-10"></ResearchExpert>
+    <div class="mx-10 mobile:mx-6">
+        <Profile></Profile>
     </div>
 </template>
 

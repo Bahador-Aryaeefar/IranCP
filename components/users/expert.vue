@@ -7,21 +7,6 @@
                     type="text" placeholder="جستجو پیشرفته">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
-            <!-- <div
-                class="h-14 w-[14rem] px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
-                1402
-                <img class="absolute left-6 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">
-            </div>
-            <div
-                class="h-14 w-[14rem] px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
-                شهرستان
-                <img class="absolute left-6 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">
-            </div>
-            <div
-                class="h-14 w-[14rem] px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
-                دسته
-                <img class="absolute left-6 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">
-            </div> -->
         </div>
 
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
@@ -78,7 +63,7 @@
                             </div>
                         </td>
                         <td class="text-[#08B3B9]">
-                            <NuxtLink :to="`/user/${item.id}`">مشاهده</NuxtLink>
+                            <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
                         </td>
                     </tr>
                 </tbody>
@@ -104,11 +89,17 @@ th {
     padding-block: 0.5rem;
 }
 
+
+
 td {
     border-radius: 100rem;
     background-color: white;
     padding-inline: 1.5rem;
     padding-block: 0.5rem;
     box-shadow: 0 0.25rem 0.375rem -0.063rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1);
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 </style>

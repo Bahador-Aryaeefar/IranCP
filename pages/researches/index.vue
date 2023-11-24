@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Researches class="mt-10"></Researches>
+        <ResearchesExpert class="mt-10"></ResearchesExpert>
     </div>
 </template>
 
