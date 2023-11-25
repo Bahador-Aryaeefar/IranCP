@@ -30,7 +30,9 @@
                         <th>شماره تلفن</th>
                         <th>آدرس محل کار</th>
                         <th>وضعیت</th>
+                        <th>نقش</th>
                         <th>جزئیات</th>
+                        <th>حذف</th>
                     </tr>
                 </thead>
 
@@ -53,17 +55,42 @@
                         <td>{{ item.mobile }}</td>
                         <td>{{ item.work_address }}</td>
                         <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 0},item.id)">
+                            <div class="flex gap-1 items-center cursor-pointer"
+                                @click="admin.changeUser({ status: 0 }, item.id)">
                                 <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
                                 عدم تایید
                             </div>
-                            <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 1},item.id)">
+                            <div class="flex gap-1 items-center cursor-pointer"
+                                @click="admin.changeUser({ status: 1 }, item.id)">
                                 <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
                                 تایید
                             </div>
                         </td>
+                        <td class="!max-w-[100rem]">
+                            <div class="flex gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer">
+                                    <UiRadioButton :isSelected="item.role_id == 5"></UiRadioButton>
+                                    دبیر
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer">
+                                    <UiRadioButton :isSelected="item.role_id == 4"></UiRadioButton>
+                                    کارشناس
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer">
+                                    <UiRadioButton :isSelected="item.role_id == 3"></UiRadioButton>
+                                    داور
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer">
+                                    <UiRadioButton :isSelected="item.role_id == 2 || item.role_id == 1"></UiRadioButton>
+                                    مدیر
+                                </div>
+                            </div>
+                        </td>
                         <td class="text-[#08B3B9]">
                             <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
+                        </td>
+                        <td class="text-[#EE0035]">
+                            <span class="cursor-pointer">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -73,10 +100,10 @@
 </template>
 
 <script setup>
-const expert = useExpert()
-expert.getUsers()
+const admin = useAdmin()
+admin.getUsers()
 const genders = ['مرد', 'زن']
-const users = computed(() => expert.users.value)
+const users = computed(() => admin.users.value)
 const cities = useCities()
 if (cities.cities.value == null) {
     cities.getCities()

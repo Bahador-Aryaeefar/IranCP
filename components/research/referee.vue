@@ -9,7 +9,8 @@
                 </div>
             </div>
 
-            <img class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem]"
+            <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8"></div>
+            <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]"
                 :src="`https://api.37pajoohesh.ir/images/${research.file_image}`" alt="book">
             <h1 class="text-center text-[2rem] text-bold mt-2">
                 {{ research.name }}
@@ -24,6 +25,16 @@
                 <li class="flex justify-between">
                     عنوان
                     <span>{{ research.name }}</span>
+                </li>
+                <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                <li class="flex justify-between">
+                    استان
+                    <span>{{ cities.searchProvince(research.province_id)?.title }}</span>
+                </li>
+                <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                <li class="flex justify-between">
+                    شهر
+                    <span>{{ cities.searchCity(research.city_id)?.title }}</span>
                 </li>
                 <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
                 <li class="flex justify-between">
@@ -60,7 +71,7 @@
                 </p>
             </div>
 
-            <a :href="`https://api.37pajoohesh.ir/images/${research.file}`" target="_blank"
+            <a v-if="research.file" :href="`https://api.37pajoohesh.ir/images/${research.file}`" target="_blank"
                 class="mt-8 rounded-full h-16 bg-[#57C5C6] flex items-center justify-between px-6">
                 <div class="text-white font-bold text-2xl">
                     دانلود فایل
@@ -154,7 +165,7 @@
                 </div>
                 <div class="rounded-full h-[0.125rem] bg-[#21C2C0] mt-3"></div>
                 <div class="text-xl mt-3">
-                    {{item.description}}
+                    {{ item.description }}
                 </div>
             </li>
         </ul>
@@ -252,7 +263,7 @@ const isOpinion = ref(false)
 const setOpinion = () => {
     if (!refer.value) return
     isOpinion.value = true
-    if(!opinion.value) return
+    if (!opinion.value) return
 
     isOpinion.value = false
     const req = {

@@ -52,7 +52,7 @@
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 rounded-full bg-[#DE3D3D]"></div>
                             <div>
-                                متوسطه
+                                تکمیلی
                                 <br>
                                 {{ stats[2] }}
                             </div>

@@ -71,10 +71,10 @@
             </div>
 
             <div class="h-14 w-[18rem] relative">
-                <input id="serviceDate" v-model="serviceDate"
-                    :class="(isConfirmed && !serviceDate) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                <input id="address" v-model="address"
+                    :class="(isConfirmed && !address) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                     class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                    type="text" placeholder="شروع کار">
+                    type="text" placeholder="محل کار">
             </div>
         </form>
 
@@ -99,7 +99,7 @@ const discipline = ref(user.value.discipline)
 const experience = ref(user.value.work_experience)
 const position = ref(user.value.current_position)
 const positionHistory = ref(user.value.history_current_position)
-const serviceDate = ref(user.value.service_start_date)
+const address = ref(user.value.work_address)
 
 const cities = useCities()
 cities.getCities()
@@ -138,7 +138,7 @@ const edit = () => {
     if (!experience.value) isValid = false
     if (!position.value) isValid = false
     if (!positionHistory.value) isValid = false
-    if (!serviceDate.value) isValid = false
+    if (!address.value) isValid = false
 
 
     if (!isValid) return
@@ -155,7 +155,7 @@ const edit = () => {
         work_experience: experience.value,
         current_position: position.value,
         history_current_position: positionHistory.value,
-        service_start_date: serviceDate.value,
+        work_address: address.value,
     }
 
     console.log(req)

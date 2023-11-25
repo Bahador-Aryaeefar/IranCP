@@ -15,6 +15,8 @@
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
+                        <th>استان</th>
+                        <th>شهر</th>
                         <th>موضوع</th>
                         <th>مقطع تحصیلی اثر</th>
                         <th>نوع اثر</th>
@@ -29,6 +31,8 @@
                     <tr v-for="item in researches">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
+                        <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
                         <td>{{ grades[item.grade_id - 1] }}</td>
                         <td>{{ types[item.individual] }}</td>
@@ -89,6 +93,11 @@ const types = [
 
 const me = () => {
     console.log(researches.value)
+}
+
+const cities = useCities()
+if (cities.cities.value == null) {
+    cities.getCities()
 }
 </script>
 
