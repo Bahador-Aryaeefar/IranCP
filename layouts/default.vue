@@ -2,6 +2,24 @@
     <div dir="rtl" class="font-Yekan max-w-[100rem] mx-auto">
         <slot />
 
+        <div v-if="toast.load.value"
+            class="fixed left-0 top-0 w-full h-full bg-[#00000040] z-[199] flex items-center justify-center break-words">
+            <div class="w-[50rem] bg-white rounded-[1rem] mx-4">
+                <div class="w-full h-[21.5rem] rounded-t-[1rem] bg-cover flex items-center bg-right turn justify-end"
+                    style="background-image: url('/images/projects/books.png');">
+                    <div class="px-4 pt-4 pb-2 rounded-l-[2rem] turn">
+                        <h1 class="font-bold text-[2.6rem] text-black leading-[2rem]">سامانه ایران و فرهنگ</h1>
+                    </div>
+                </div>
+                <div class="h-[3.75rem] px-6 flex items-center gap-4 text-[#81756F]">
+                    <img class="w-8 h-8 rotating" src="/icons/load.png" alt="load">
+                    <div class="text-black text-xl">
+                        در حال بارگیری نتایج
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div v-if="toast.showError.value"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
             @click="toast.clearError">
@@ -71,6 +89,24 @@ body {
 @media screen and (max-width: 400px) {
     html {
         font-size: 10px;
+    }
+}
+</style>
+
+<style scoped>
+.rotating {
+    animation: spin 1s linear infinite;
+}
+
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
     }
 }
 </style>

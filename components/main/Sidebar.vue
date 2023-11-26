@@ -1,6 +1,8 @@
 <template>
-    <div class="fixed right-0 left-0 top-0 pt-[4.5rem] pb-2 h-[100vh] w-full">
-        <div class="bg-white h-full w-[20rem] flex flex-col justify-between">
+    <div @click="sidebar = false"
+        :class="sidebar ? 'mobile:z-[3] mobile:bg-[#0000004D] mobile:backdrop-blur-[0.125rem]' : 'mobile:hidden'"
+        class="fixed  right-0 left-0 top-0 pt-[4.5rem] pb-2 h-[100vh] w-full">
+        <div class="bg-white h-full w-[20rem] flex flex-col justify-between" @click.stop="">
             <div class="text-black text-lg p-6 pt-10">
                 <NuxtLink to="/" class="flex rounded-full h-10 items-center cursor-pointer gap-1"
                     :class="route.path == '/' ? 'bg-[#F5F6FA] shadow-md' : ''">
@@ -26,13 +28,23 @@
                     </NuxtLink>
                 </template>
 
-                <template v-if="[1, 2, 4].includes(user.role_id)">
+                <template v-if="[1, 2].includes(user.role_id)">
                     <hr class="border-[#08B3B9] my-2">
 
                     <NuxtLink to="/period" :class="route.path == '/period' ? 'bg-[#F5F6FA] shadow-md' : ''"
                         class="flex rounded-full h-10 items-center cursor-pointer gap-2">
                         <img class="h-7 mr-2.5" src="/icons/main/personal.svg" alt="personal">
                         دوره اقدام پژوهی
+                    </NuxtLink>
+                </template>
+
+                <template v-if="[1, 2].includes(user.role_id)">
+                    <hr class="border-[#08B3B9] my-2">
+
+                    <NuxtLink to="/questions" :class="route.path == '/questions' ? 'bg-[#F5F6FA] shadow-md' : ''"
+                        class="flex rounded-full h-10 items-center cursor-pointer gap-2">
+                        <img class="h-12" src="/icons/main/projects.svg" alt="projects">
+                        سوالات
                     </NuxtLink>
                 </template>
             </div>
@@ -49,6 +61,6 @@
 <script setup>
 
 const route = useRoute()
-const { user } = useUser()
+const { user, sidebar } = useUser()
 
 </script>

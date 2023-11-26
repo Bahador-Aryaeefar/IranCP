@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .turn {
+        transform: rotateY(180deg);
+    }
+}
+
 @font-face {
     font-family: Yekan;
     font-style: normal;

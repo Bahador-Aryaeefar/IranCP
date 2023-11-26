@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="max-w-[50rem] mx-auto">
         <div class="bg-white rounded-[1rem] py-6 px-10">
             <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
                 ویرایش

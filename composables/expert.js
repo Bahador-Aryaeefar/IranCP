@@ -11,6 +11,7 @@ export const useExpert = () => {
         users.value = null
         await useFetch('https://api.37pajoohesh.ir/api/expert/users', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get users')
                 options.headers = {
                     "Accept": "application/json"
@@ -20,11 +21,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("Users: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     users.value = response._data
@@ -32,6 +35,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("Users: " + response._data.data)
             },
             initialCache: false,
@@ -43,6 +47,7 @@ export const useExpert = () => {
         user.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get user')
                 options.headers = {
                     "Accept": "application/json"
@@ -52,11 +57,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("user: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     user.value = response._data
@@ -64,6 +71,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("user: " + response._data.data)
             },
             initialCache: false,
@@ -74,6 +82,7 @@ export const useExpert = () => {
     const changeUser = async (req, id) => {
         await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('change users')
                 options.headers = {
                     "Accept": "application/json"
@@ -84,11 +93,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("change User: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     getUsers()
@@ -97,6 +108,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("change User: " + response._data.data)
             },
             initialCache: false,
@@ -108,6 +120,7 @@ export const useExpert = () => {
         researches.value = null
         await useFetch('https://api.37pajoohesh.ir/api/expert/research', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get researches')
                 options.headers = {
                     "Accept": "application/json"
@@ -117,11 +130,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("researches: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     researches.value = response._data
@@ -129,6 +144,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("researches: " + response._data.data)
             },
             initialCache: false,
@@ -140,6 +156,7 @@ export const useExpert = () => {
         research.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get research')
                 options.headers = {
                     "Accept": "application/json"
@@ -149,11 +166,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("research: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     research.value = response._data
@@ -161,6 +180,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("research: " + response._data.data)
             },
             initialCache: false,
@@ -171,6 +191,7 @@ export const useExpert = () => {
     const changeResearch = async (req, id) => {
         await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('change research')
                 options.headers = {
                     "Accept": "application/json"
@@ -181,11 +202,13 @@ export const useExpert = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("Change Research: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     getResearches()
@@ -194,6 +217,7 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("Change Research: " + response._data.data)
             },
             initialCache: false,

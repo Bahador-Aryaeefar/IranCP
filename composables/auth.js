@@ -14,6 +14,7 @@ export const useAuth = () => {
     const login = async (req) => {
         await useFetch('https://api.37pajoohesh.ir/api/login', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('login')
                 options.headers = {
                     "Accept": "application/json"
@@ -23,10 +24,12 @@ export const useAuth = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("Login: " + error)
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     cookie.value = response._data
@@ -35,6 +38,7 @@ export const useAuth = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("Login: " + response._data.data)
             },
             initialCache: false,
@@ -45,6 +49,7 @@ export const useAuth = () => {
     const register = async (req) => {
         await useFetch('https://api.37pajoohesh.ir/api/register', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('register')
                 options.headers = {
                     "Accept": "application/json"
@@ -54,10 +59,12 @@ export const useAuth = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("Register: " + error)
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     cookie.value = response._data.token
@@ -66,6 +73,7 @@ export const useAuth = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("Register: " + response._data.data)
             },
             initialCache: false
@@ -75,6 +83,7 @@ export const useAuth = () => {
     const registerTeacher = async (req) => {
         await useFetch('https://api.37pajoohesh.ir/api/registerTeacher', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('register teacher')
                 options.headers = {
                     "Accept": "application/json"
@@ -84,10 +93,12 @@ export const useAuth = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("RegisterTeacher: " + error)
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     // cookie.value = response._data
@@ -96,6 +107,7 @@ export const useAuth = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("RegisterTeacher: " + response._data.data)
             },
             initialCache: false,
@@ -106,6 +118,7 @@ export const useAuth = () => {
     const update = async (req) => {
         await useFetch('https://api.37pajoohesh.ir/api/user/update', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('register teacher')
                 options.headers = {
                     "Accept": "application/json"
@@ -116,10 +129,12 @@ export const useAuth = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("RegisterTeacher: " + error)
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     // cookie.value = response._data
@@ -128,6 +143,7 @@ export const useAuth = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("RegisterTeacher: " + response._data.data)
             },
             initialCache: false,

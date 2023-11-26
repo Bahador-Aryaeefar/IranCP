@@ -9,6 +9,7 @@ export const useReferee = () => {
         researches.value = null
         await useFetch('https://api.37pajoohesh.ir/api/referee/research', {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get researches')
                 options.headers = {
                     "Accept": "application/json"
@@ -18,11 +19,13 @@ export const useReferee = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("researches: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     researches.value = response._data
@@ -30,6 +33,7 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("researches: " + response._data.data)
             },
             initialCache: false,
@@ -42,6 +46,7 @@ export const useReferee = () => {
         questions.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/referee/research/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get research')
                 options.headers = {
                     "Accept": "application/json"
@@ -51,11 +56,13 @@ export const useReferee = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("research: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     research.value = response._data
@@ -64,6 +71,7 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("research: " + response._data.data)
             },
             initialCache: false,
@@ -75,6 +83,7 @@ export const useReferee = () => {
         questions.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/referee/questions`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('get questions')
                 options.headers = {
                     "Accept": "application/json"
@@ -84,11 +93,13 @@ export const useReferee = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("questions: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     questions.value = response._data
@@ -96,6 +107,7 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -106,6 +118,7 @@ export const useReferee = () => {
     const setScore = async (req, id, id2) => {
         await useFetch(`https://api.37pajoohesh.ir/api/referee/research/score/${id}`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('set score')
                 options.headers = {
                     "Accept": "application/json"
@@ -116,11 +129,13 @@ export const useReferee = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("score: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     getResearch(id2)
@@ -128,6 +143,7 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("score: " + response._data.data)
             },
             initialCache: false,
@@ -139,6 +155,7 @@ export const useReferee = () => {
         questions.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/referee/research/${id}/opinion`, {
             onRequest({ request, options }) {
+                toast.addLoad()
                 console.log('set opinions')
                 options.headers = {
                     "Accept": "application/json"
@@ -149,11 +166,13 @@ export const useReferee = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
+                toast.clearLoad()
                 toast.addError("opinions: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
+                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     getResearch(id2)
@@ -161,6 +180,7 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
+                toast.clearLoad()
                 toast.addError("opinions: " + response._data.data)
             },
             initialCache: false,

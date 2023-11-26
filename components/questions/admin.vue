@@ -8,7 +8,7 @@
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
 
-            <div @click="isOpen = true"
+            <div @click="isOpen = true; isEdit = false; title = ''; factor = ''"
                 class="cursor-pointer rounded-full flex items-center justify-center w-14 h-14 text-[3rem] pb-1.5 text-white bg-[#08B3B9] shrink-0">
                 +</div>
         </div>
@@ -17,41 +17,26 @@
             <table class="w-full mt-4 border-spacing-[1rem] border-separate">
                 <thead class="text-white font-bold text-lg whitespace-nowrap">
                     <tr>
+                        <th>شماره</th>
                         <th>سال</th>
-                        <th>وضعیت</th>
+                        <th>سوال</th>
+                        <th>ضریب</th>
+                        <th>ویرایش</th>
                         <th>حذف</th>
                     </tr>
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in coords">
+                    <tr v-for="item in questions">
+                        <td>{{ item.id }}</td>
                         <td>{{ item.date }}</td>
-                        <td>
-                            <div class="flex gap-6 justify-between px-6">
-                                <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 0 }, item.date)">
-                                    <UiRadioButton :isSelected="item.status == 0"></UiRadioButton>
-                                    شروع نشده
-                                </div>
-                                <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 1 }, item.date)">
-                                    <UiRadioButton :isSelected="item.status == 1"></UiRadioButton>
-                                    مرحله اول
-                                </div>
-                                <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 2 }, item.date)">
-                                    <UiRadioButton  :isSelected="item.status == 2"></UiRadioButton>
-                                    مرحله دوم
-                                </div>
-                                <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 3 }, item.date)">
-                                    <UiRadioButton :isSelected="item.status == 3"></UiRadioButton>
-                                    پایان یافته
-                                </div>
-                            </div>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.factor }}</td>
+                        <td class="text-[#08B3B9]">
+                            <span class="cursor-pointer" @click="isEdit = true; isOpen = true; title = item.title; factor = item.factor; questionsID = item.id">ویرایش</span>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer">حذف</span>
+                            <span @click="admin.deleteQuestions(item.id)" class="cursor-pointer">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -60,29 +45,32 @@
 
         <div v-if="isOpen"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[100] flex items-center justify-center"
-            @click="isOpen = false">
+            @click="isOpen = false; isEdit = false">
             <div @click.stop="" class="bg-white rounded-[1rem] py-6 px-10 mt-10">
-                <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
-                    دوره جدید
+                <h1 v-if="isEdit" class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
+                    ویرایش سوال
+                </h1>
+                <h1 v-else class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
+                    سوال جدید
                 </h1>
 
                 <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
                     <div class="h-14 w-[18rem] relative">
-                        <input id="status" v-model="status"
-                            :class="(isConfirmed && !status) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        <input id="title" v-model="title"
+                            :class="(isConfirmed && !title) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                             class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                            type="text" placeholder="مرحله">
+                            type="text" placeholder="سوال">
                     </div>
 
                     <div class="h-14 w-[18rem] relative">
-                        <input id="date" v-model="date"
-                            :class="(isConfirmed && !date) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        <input id="factor" v-model="factor"
+                            :class="(isConfirmed && !factor) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                             class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                            type="text" placeholder="سال">
+                            type="text" placeholder="ضریب">
                     </div>
                 </form>
 
-                <div @click="addCoord"
+                <div @click="addQuestion"
                     class="flex items-center justify-center mx-auto h-14 mt-4 rounded-full bg-[#57C5C6] cursor-pointer gap-2 text-white text-xl">
                     ثبت
                 </div>
@@ -93,29 +81,33 @@
 
 <script setup>
 const admin = useAdmin()
-admin.getCoords()
-const { coords } = useAdmin()
+admin.getQuestions()
+const { questions } = useAdmin()
 const isOpen = ref(false)
+const isEdit = ref(false)
+const questionsID = ref("")
 
-const status = ref("")
-const date = ref("")
+const title = ref("")
+const factor = ref("")
 const isConfirmed = ref(false)
-const addCoord = () => {
+const addQuestion = () => {
     isConfirmed.value = true
     let isValid = true
-    if (!status.value) isValid = false
-    if (!date.value) isValid = false
+    if (title.value == null) isValid = false
+    if (factor.value == null) isValid = false
     if (!isValid) return
 
     const req = {
-        status: status.value,
-        date: date.value
+        title: title.value,
+        factor: factor.value
     }
 
-    admin.addCoords(req)
+    if(isEdit.value) admin.changeQuestions(req, questionsID.value)
+    else admin.addQuestions(req)
     isOpen.value = false
-    status.value = ""
-    date.value = ""
+    title.value = ""
+    factor.value = ""
+    questionsID.value = ""
 }
 </script>
 
@@ -137,4 +129,5 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}</style>
+}
+</style>
