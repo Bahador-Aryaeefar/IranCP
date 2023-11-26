@@ -4,6 +4,7 @@ export const useAdmin = () => {
     const users = useState('adminUsers', () => null)
     const user = useState('adminUser', () => null)
     const researches = useState('adminResearches', () => null)
+    const coords = useState('adminCoords', () => null)
     const research = useState('adminResearch', () => null)
 
 
@@ -21,7 +22,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("Users: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -41,7 +41,7 @@ export const useAdmin = () => {
 
     const getUser = async (id) => {
         user.value = null
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/user/${id}`, {
             onRequest({ request, options }) {
                 console.log('get user')
                 options.headers = {
@@ -53,7 +53,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("user: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -72,7 +71,7 @@ export const useAdmin = () => {
     }
 
     const changeUser = async (req, id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/user/${id}`, {
             onRequest({ request, options }) {
                 console.log('change users')
                 options.headers = {
@@ -85,7 +84,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("change User: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -118,7 +116,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("researches: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -138,7 +135,7 @@ export const useAdmin = () => {
 
     const getResearch = async (id) => {
         research.value = null
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 console.log('get research')
                 options.headers = {
@@ -150,7 +147,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("research: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -169,7 +165,7 @@ export const useAdmin = () => {
     }
 
     const changeResearch = async (req, id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 console.log('change research')
                 options.headers = {
@@ -182,7 +178,6 @@ export const useAdmin = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.addError("Change Research: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
@@ -201,6 +196,68 @@ export const useAdmin = () => {
         })
     }
 
+    const getCoords = async (req) => {
+        coords.value = null
+        await useFetch('https://api.37pajoohesh.ir/api/admin/coordinate', {
+            onRequest({ request, options }) {
+                console.log('get coords')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'GET'
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.addError("coords: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    coords.value = response._data
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("coords: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
 
-    return { users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch }
+    const addCoords = async (req) => {
+        coords.value = null
+        await useFetch('https://api.37pajoohesh.ir/api/admin/coordinate', {
+            onRequest({ request, options }) {
+                console.log('add coords')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'POST'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.addError("coords: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getCoords()
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("coords: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    return { addCoords,coords, getCoords,users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch }
 }

@@ -68,19 +68,19 @@
                         </td>
                         <td class="!max-w-[100rem]">
                             <div class="flex gap-6 ">
-                                <div class="flex gap-1 items-center cursor-pointer">
-                                    <UiRadioButton :isSelected="item.role_id == 5"></UiRadioButton>
+                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 5 }, item.id)">
+                                    <UiRadioButton :isSelected="item.role_id == 5" ></UiRadioButton>
                                     دبیر
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer">
+                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 4 }, item.id)">
                                     <UiRadioButton :isSelected="item.role_id == 4"></UiRadioButton>
                                     کارشناس
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer">
+                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 3 }, item.id)">
                                     <UiRadioButton :isSelected="item.role_id == 3"></UiRadioButton>
                                     داور
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer">
+                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 1 }, item.id)">
                                     <UiRadioButton :isSelected="item.role_id == 2 || item.role_id == 1"></UiRadioButton>
                                     مدیر
                                 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user">
+    <div class="px-6" v-if="user">
         <div class="mt-10 flex items-end justify-center max-w-[35rem] mx-auto items-center">
             <div class="text-center text-black font-bold text-2xl shrink-0">
                 <div class="w-[7rem] h-[7rem] rounded-full mx-auto border-[0.25rem] border-[#1DA8A6] shadow-md bg-contain bg-center bg-white mb-4 bg-no-repeat"

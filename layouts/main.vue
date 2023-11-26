@@ -5,7 +5,7 @@
         <div class="flex">
             <MainSidebar></MainSidebar>
             <div class="w-[20rem] shrink-0"></div>
-            <div class="grow z-[1] overflow-hidden">
+            <div class="grow z-[1] overflow-hidden pb-20">
                 <slot />
             </div>
         </div>
