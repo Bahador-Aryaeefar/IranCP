@@ -29,29 +29,29 @@
                         <td>
                             <div class="flex gap-6 justify-between px-6">
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 0 }, item.date)">
+                                    @click="admin.changeCoords({ status: 0 }, item.id)">
                                     <UiRadioButton :isSelected="item.status == 0"></UiRadioButton>
                                     شروع نشده
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 1 }, item.date)">
+                                    @click="admin.changeCoords({ status: 1 }, item.id)">
                                     <UiRadioButton :isSelected="item.status == 1"></UiRadioButton>
                                     مرحله اول
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 2 }, item.date)">
+                                    @click="admin.changeCoords({ status: 2 }, item.id)">
                                     <UiRadioButton  :isSelected="item.status == 2"></UiRadioButton>
                                     مرحله دوم
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="admin.changeCoords({ status: 3 }, item.date)">
+                                    @click="admin.changeCoords({ status: 3 }, item.id)">
                                     <UiRadioButton :isSelected="item.status == 3"></UiRadioButton>
                                     پایان یافته
                                 </div>
                             </div>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer">حذف</span>
+                            <span class="cursor-pointer" @click="admin.deleteCoords(item.id)">حذف</span>
                         </td>
                     </tr>
                 </tbody>

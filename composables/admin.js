@@ -295,12 +295,46 @@ export const useAdmin = () => {
         await useFetch(`https://api.37pajoohesh.ir/api/admin/coordinate/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
-                console.log('change coords')
+                console.log('change coord')
                 options.headers = {
                     "Accept": "application/json"
                 }
                 options.method = 'PUT'
                 options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("coords: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getCoords()
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.clearLoad()
+                toast.addError("coords: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    const deleteCoords = async (id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/coordinate/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('delete coord')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'DELETE'
                 options.headers.Authorization = 'Bearer ' + cookie.value
             },
             onRequestError({ request, options, error, response }) {
@@ -465,5 +499,5 @@ export const useAdmin = () => {
         })
     }
 
-    return { questions, deleteQuestions, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords }
+    return { questions, deleteQuestions, deleteCoords, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords }
 }
