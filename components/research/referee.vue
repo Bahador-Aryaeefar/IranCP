@@ -5,7 +5,7 @@
                 <div class="text-center text-black font-bold text-2xl shrink-0">
                     <div class="w-[7rem] h-[7rem] rounded-full mx-auto border-[0.25rem] border-[#1DA8A6] shadow-md bg-contain bg-center bg-white mb-4 bg-no-repeat"
                         style="background-image: url('/images/profile.png'); background-size: 70%;"></div>
-                    {{ research.name }}
+                    {{ (research?.user?.name + ' ' + ((research?.user?.last_name) ? research?.user?.last_name : '')) }}
                 </div>
             </div>
 

@@ -4,12 +4,12 @@
             <div class="text-center text-black font-bold text-2xl shrink-0">
                 <div class="w-[7rem] h-[7rem] rounded-full mx-auto border-[0.25rem] border-[#1DA8A6] shadow-md bg-contain bg-center bg-white mb-4 bg-no-repeat"
                     style="background-image: url('/images/profile.png'); background-size: 70%;"></div>
-                {{ research.name }}
+                {{ (research?.user?.name + ' ' + ((research?.user?.last_name) ? research?.user?.last_name : '')) }}
             </div>
         </div>
 
         <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8"></div>
-        <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]" 
+        <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]"
             :src="`https://api.37pajoohesh.ir/images/${research.file_image}`" alt="book">
         <h1 class="text-center text-[2rem] text-bold mt-2">
             {{ research.name }}

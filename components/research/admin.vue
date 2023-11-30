@@ -1,11 +1,11 @@
 <template>
-    <div v-if="refer" class="px-4">
+    <div v-if="research" class="px-4">
         <div class="max-w-[50rem] mx-auto w-full">
             <div class="mt-10 flex items-end justify-center max-w-[35rem] mx-auto items-center">
                 <div class="text-center text-black font-bold text-2xl shrink-0">
                     <div class="w-[7rem] h-[7rem] rounded-full mx-auto border-[0.25rem] border-[#1DA8A6] shadow-md bg-contain bg-center bg-white mb-4 bg-no-repeat"
                         style="background-image: url('/images/profile.png'); background-size: 70%;"></div>
-                    {{ research.name }}
+                    {{ (research?.user?.name + ' ' + ((research?.user?.last_name) ? research?.user?.last_name : '')) }}
                 </div>
             </div>
 
@@ -88,6 +88,51 @@
         </div>
 
         <div class="overflow-auto">
+            <div class="mx-auto w-fit">
+                <div class="text-black font-bold text-2xl text-center mt-20">داور ها</div>
+                <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                <table class="w-full mt-4 border-spacing-[1rem] border-separate">
+                    <thead class="text-white font-bold text-lg">
+                        <tr>
+                            <th>نقش</th>
+                            <th>نام</th>
+                            <th>کد پرسنلی</th>
+                            <th>شماره تماس</th>
+                            <th>جزئیات</th>
+                            <th>داوری</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="text-black font-bold text-lg text-center whitespace-nowrap">
+                        <tr v-for="(item, index) in research.referees">
+                            <td>
+                                داور
+                                {{ numbers[index] }}
+                            </td>
+                            <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
+                            <td>{{ item.personal_code }}</td>
+                            <td>{{ item.mobile }}</td>
+                            <td>
+                                <NuxtLink :to="`/users/${item.id}`" class="cursor-pointer text-[#08B3B9]">مشاهده</NuxtLink>
+                            </td>
+                            <td>
+                                <span class="cursor-pointer text-[#08B3B9]">مشاهده</span>
+                            </td>
+                            <td>
+                                <span @click="admin.deleteReferee({ referees: [item.id] }, research.id)"
+                                    class="cursor-pointer text-[#EE0035]">حذف</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                    @click="isOpen = true">+
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="overflow-auto">
             <div class=" mx-auto w-fit">
                 <div class="text-black font-bold text-2xl text-center mt-20">داوری</div>
                 <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
@@ -168,23 +213,56 @@
                     {{ item.description }}
                 </div>
             </li>
-        </ul>
+        </ul> -->
+
+        <div v-if="isOpen"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[100] flex items-center justify-center"
+            @click="isOpen = false">
+            <div @click.stop="" class="bg-white rounded-[1rem] py-6 px-10 mt-10">
+                <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
+                    داور جدید
+                </h1>
+
+                <div class="h-14 w-[30rem] relative mt-4">
+                    <input id="search" v-model="search"
+                        :class="(isConfirmed && !search) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                        type="text" placeholder="جستجو">
+                </div>
+
+                <ul class="mt-4 overflow-auto max-h-[20rem] FirefoxScroll">
+                    <template
+                        v-for="(item, index) in users.filter(x => x.role_id == 3 && (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
+                        <div v-if="index" class="h-[0.125rem] rounded-full bg-[#08B3B9] my-2"></div>
+                        <li @click="admin.addReferee({ referees: [item.id] }, research.id)"
+                            class="flex items-center justify-between h-16 text-xl cursor-pointer hover:bg-[#A6EFF2] rounded-[1rem] px-4">
+                            <span>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</span>
+                            <span>{{ item.personal_code }}</span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 
+const isOpen = ref(false)
+const search = ref("")
 const { id } = useRoute().params
 const cities = useCities()
 if (cities.cities.value == null) {
     cities.getCities()
 }
 const opinion = ref("")
-const referee = useReferee()
+const admin = useAdmin()
+admin.getUsers()
+const { users } = useAdmin()
 const isConfirmed = ref(false)
-const refer = computed(() => referee.research.value ? referee.research.value[0] : null)
-const research = computed(() => (referee?.research?.value && referee?.research?.value[0]) ? referee?.research?.value[0]?.research : null)
-referee.getResearch(id)
+const refer = computed(() => admin.research.value ? admin.research.value : null)
+const research = computed(() => admin?.research?.value ? admin?.research?.value : null)
+admin.getResearch(id)
 const categories = [
     'آموزش و یادگیری',
     'بهداشت و محیط زیست',
@@ -211,17 +289,25 @@ const types = [
     'انفرادی',
     'گروهی'
 ]
+const numbers = [
+    "اول",
+    "دوم",
+    "سوم",
+    "چهارم",
+    "پنجم",
+    "ششم"
+]
 
 const description = ref(refer?.value?.description)
 
-const questions = ref(referee.questions.value ? referee.questions.value.map(x => {
+const questions = ref(admin.questions.value ? admin.questions.value.map(x => {
     let temp = refer.value?.questions.filter(y => x.id == y.pivot.question_id)[0]
     if (temp) x.score = temp.pivot.score
     else x.score = OnErrorEventHandlerNonNull
     return x
 }) : null)
 
-watch(() => referee.questions.value, (newV, oldV) => {
+watch(() => admin.questions.value, (newV, oldV) => {
     if (newV == null) return
     questions.value = newV ? newV.map(x => {
         let temp = refer.value?.questions.filter(y => x.id == y.pivot.question_id)[0]
@@ -253,7 +339,7 @@ const confirm = () => {
     })
 
     console.log(req)
-    referee.setScore(req, refer.value.id, id)
+    admin.setScore(req, refer.value.id, id)
     isConfirmed.value = false
 }
 
@@ -267,7 +353,7 @@ const setOpinion = () => {
     const req = {
         description: opinion.value
     }
-    referee.setOpinion(req, refer.value.id, id)
+    admin.setOpinion(req, refer.value.id, id)
     opinion.value = ""
 }
 </script>
@@ -286,5 +372,41 @@ td {
     padding-inline: 1.5rem;
     padding-block: 0.5rem;
     box-shadow: 0 0.25rem 0.375rem -0.063rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1);
+}
+</style>
+
+<style scoped>
+.FirefoxScroll {
+    scrollbar-color: #A8AEB5 transparent;
+    scrollbar-width: thin;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.188rem;
+    height: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #A8AEB5;
+    border-radius: 300px;
+}
+
+::-webkit-scrollbar-button:end:increment {
+    height: 0.2rem;
+    display: block;
+    background: transparent;
+}
+
+::-webkit-scrollbar-button:start:increment {
+    height: 0.2rem;
+    display: block;
+    background: transparent;
 }
 </style>

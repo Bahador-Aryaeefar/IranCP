@@ -35,7 +35,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("Users: " + response._data.data)
             },
             initialCache: false,
@@ -71,7 +70,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("user: " + response._data.data)
             },
             initialCache: false,
@@ -108,7 +106,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("change User: " + response._data.data)
             },
             initialCache: false,
@@ -144,7 +141,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("researches: " + response._data.data)
             },
             initialCache: false,
@@ -180,7 +176,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("research: " + response._data.data)
             },
             initialCache: false,
@@ -217,7 +212,6 @@ export const useExpert = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("Change Research: " + response._data.data)
             },
             initialCache: false,

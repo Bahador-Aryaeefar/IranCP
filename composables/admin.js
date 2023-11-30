@@ -36,7 +36,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("Users: " + response._data.data)
             },
             initialCache: false,
@@ -71,7 +70,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("user: " + response._data.data)
             },
             initialCache: false,
@@ -107,8 +105,40 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("change User: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    const deleteUser = async (id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/user/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('delete users')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'DELETE'
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("delete User: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getUsers()
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("delete User: " + response._data.data)
             },
             initialCache: false,
             server: false
@@ -142,7 +172,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("researches: " + response._data.data)
             },
             initialCache: false,
@@ -177,7 +206,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("research: " + response._data.data)
             },
             initialCache: false,
@@ -213,8 +241,40 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("Change Research: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    const deleteResearch = async (id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('delete research')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'DELETE'
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("delete Research: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getResearches()
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("delete Research: " + response._data.data)
             },
             initialCache: false,
             server: false
@@ -248,7 +308,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("coords: " + response._data.data)
             },
             initialCache: false,
@@ -283,7 +342,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("coords: " + response._data.data)
             },
             initialCache: false,
@@ -318,7 +376,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("coords: " + response._data.data)
             },
             initialCache: false,
@@ -352,7 +409,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("coords: " + response._data.data)
             },
             initialCache: false,
@@ -387,7 +443,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -422,7 +477,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -457,7 +511,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -491,7 +544,6 @@ export const useAdmin = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -499,5 +551,73 @@ export const useAdmin = () => {
         })
     }
 
-    return { questions, deleteQuestions, deleteCoords, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords }
+    const addReferee = async (req, id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('add referee')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'PUT'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("referee: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getResearch(id)
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors
+                toast.addError("referee: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    const deleteReferee = async (req, id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/delete/referee/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('delete referee')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'POST'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("referee: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getResearch(id)
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("referee: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    return { deleteUser, deleteResearch, deleteReferee, addReferee, questions, deleteQuestions, deleteCoords, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords }
 }

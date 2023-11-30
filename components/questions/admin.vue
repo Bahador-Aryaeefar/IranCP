@@ -2,9 +2,9 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input
+                <input id="search" v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
-                    type="text" placeholder="جستجو پیشرفته">
+                    type="text" placeholder="جستجو سوال">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
 
@@ -27,7 +27,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in questions">
+                    <tr v-for="item in questions?.filter(x => x.title.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.date }}</td>
                         <td>{{ item.title }}</td>
@@ -80,6 +80,7 @@
 </template>
 
 <script setup>
+const search = ref("")
 const admin = useAdmin()
 admin.getQuestions()
 const { questions } = useAdmin()

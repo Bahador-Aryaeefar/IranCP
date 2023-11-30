@@ -6,7 +6,7 @@
             <img class="absolute left-10 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">
         </div>
 
-        <div class="flex mt-4 gap-3">
+        <div v-if="false" class="flex mt-4 gap-3">
             <div
                 class="flex-1 h-14 w-full px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
                 کرمانشاه
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-8 justify-between mt-20">
+        <div class="flex flex-wrap items-center gap-8 justify-between mt-20">
             <div class="flex-1">
                 <div class="bg-white rounded-[1.5rem] p-8 pb-6 font-bold">
                     <div class="w-[14rem] h-[14rem] relative mx-auto">
@@ -38,7 +38,8 @@
                             <div>
                                 ابتدایی
                                 <br>
-                                {{ stats[0] }}
+                                <!-- {{ stats[0] }} -->
+                                -
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -46,7 +47,8 @@
                             <div>
                                 متوسطه
                                 <br>
-                                {{ stats[1] }}
+                                <!-- {{ stats[1] }} -->
+                                -
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -54,14 +56,16 @@
                             <div>
                                 تکمیلی
                                 <br>
-                                {{ stats[2] }}
+                                <!-- {{ stats[2] }} -->
+                                -
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    {{ stats.reduce((a, b) => a + b) }}
+                    <!-- {{ stats.reduce((a, b) => a + b) }} -->
+                    -
                 </div>
             </div>
 
@@ -80,7 +84,8 @@
                             <div>
                                 خانم
                                 <br>
-                                {{ statsG[0] }}
+                                <!-- {{ statsG[0] }} -->
+                                -
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -88,14 +93,16 @@
                             <div>
                                 آقا
                                 <br>
-                                {{ statsG[1] }}
+                                <!-- {{ statsG[1] }} -->
+                                -
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    {{ statsG.reduce((a, b) => a + b) }}
+                    <!-- {{ statsG.reduce((a, b) => a + b) }} -->
+                    -
                 </div>
             </div>
 
@@ -114,7 +121,8 @@
                             <div>
                                 گروهی
                                 <br>
-                                {{ statsT[0] }}
+                                <!-- {{ statsT[0] }} -->
+                                -
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -122,14 +130,16 @@
                             <div>
                                 فردی
                                 <br>
-                                {{ statsT[1] }}
+                                <!-- {{ statsT[1] }} -->
+                                -
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    {{ statsT.reduce((a, b) => a + b) }}
+                    <!-- {{ statsT.reduce((a, b) => a + b) }} -->
+                    -
                 </div>
             </div>
         </div>

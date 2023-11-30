@@ -33,7 +33,6 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("researches: " + response._data.data)
             },
             initialCache: false,
@@ -71,7 +70,6 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("research: " + response._data.data)
             },
             initialCache: false,
@@ -107,7 +105,6 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("questions: " + response._data.data)
             },
             initialCache: false,
@@ -143,7 +140,6 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("score: " + response._data.data)
             },
             initialCache: false,
@@ -180,7 +176,6 @@ export const useReferee = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
                 toast.addError("opinions: " + response._data.data)
             },
             initialCache: false,

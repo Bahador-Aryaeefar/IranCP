@@ -1,10 +1,10 @@
-r<template>
+<template>
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input
+                <input id="search" v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
-                    type="text" placeholder="جستجو پیشرفته">
+                    type="text" placeholder="جستجو عنوان">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
         </div>
@@ -15,6 +15,8 @@ r<template>
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
                         <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
@@ -24,13 +26,16 @@ r<template>
                         <th>چکیده اثر</th>
                         <th>وضعیت</th>
                         <th>جزئیات</th>
+                        <th>حذف</th>
                     </tr>
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in researches">
+                    <tr v-for="item in researches?.filter(x => x.name.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ item?.user?.name }}</td>
+                        <td>{{ item?.user?.last_name }}</td>
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
@@ -53,6 +58,9 @@ r<template>
                         <td class="text-[#08B3B9]">
                             <NuxtLink :to="`/researches/${item.id}`">مشاهده</NuxtLink>
                         </td>
+                        <td class="text-[#EE0035]">
+                            <span class="cursor-pointer" @click="admin.deleteResearch(item.id)">حذف</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -61,6 +69,7 @@ r<template>
 </template>
 
 <script setup>
+const search = ref("")
 const admin = useAdmin()
 admin.getResearches()
 const researches = computed(() => admin.researches.value)

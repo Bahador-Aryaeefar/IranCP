@@ -2,9 +2,9 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input
+                <input id="search" v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
-                    type="text" placeholder="جستجو پیشرفته">
+                    type="text" placeholder="جستجو نام">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
         </div>
@@ -37,7 +37,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in users">
+                    <tr v-for="item in users?.filter(x => (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.name }}</td>
@@ -90,7 +90,7 @@
                             <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer">حذف</span>
+                            <span class="cursor-pointer" @click="admin.deleteUser(item.id)">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -100,6 +100,7 @@
 </template>
 
 <script setup>
+const search = ref("")
 const admin = useAdmin()
 admin.getUsers()
 const genders = ['مرد', 'زن']

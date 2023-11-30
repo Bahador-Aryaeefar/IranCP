@@ -2,9 +2,9 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input
+                <input id="search" v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
-                    type="text" placeholder="جستجو پیشرفته">
+                    type="text" placeholder="جستجو سال">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
 
@@ -24,7 +24,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in coords">
+                    <tr v-for="item in coords?.filter(x => x.date.includes(search))">
                         <td>{{ item.date }}</td>
                         <td>
                             <div class="flex gap-6 justify-between px-6">
@@ -92,6 +92,7 @@
 </template>
 
 <script setup>
+const search = ref("")
 const admin = useAdmin()
 admin.getCoords()
 const { coords } = useAdmin()

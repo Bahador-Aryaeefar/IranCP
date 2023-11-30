@@ -30,8 +30,6 @@ export const useCities = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.clearLoad()
-                console.log(response._data)
                 toast.addError("cities: " + response._data.data)
             },
             initialCache: false,
