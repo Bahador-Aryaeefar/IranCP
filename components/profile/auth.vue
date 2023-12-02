@@ -102,7 +102,9 @@ const positionHistory = ref(user.value.history_current_position)
 const address = ref(user.value.work_address)
 
 const cities = useCities()
-cities.getCities()
+if (cities.cities.value == null) {
+    cities.getCities()
+}
 
 const genders = ["مرد", "زن"]
 

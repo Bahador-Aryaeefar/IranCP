@@ -214,7 +214,7 @@ export const useAdmin = () => {
     }
 
     const changeResearch = async (req, id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/researchUpdate/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change research')

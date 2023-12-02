@@ -11,7 +11,7 @@
 
             <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8"></div>
             <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]"
-                :src="`https://api.37pajoohesh.ir/images/${research.file_image}`" alt="book">
+                :src="`https://api.37pajoohesh.ir/images/research/${research.file_image}`" alt="book">
             <h1 class="text-center text-[2rem] text-bold mt-2">
                 {{ research.name }}
             </h1>
@@ -71,7 +71,7 @@
                 </p>
             </div>
 
-            <a v-if="research.file" :href="`https://api.37pajoohesh.ir/images/${research.file}`" target="_blank"
+            <a v-if="research.file" :href="`https://api.37pajoohesh.ir/files/${research.file}`" target="_blank"
                 class="mt-8 rounded-full h-16 bg-[#57C5C6] flex items-center justify-between px-6">
                 <div class="text-white font-bold text-2xl">
                     دانلود فایل
@@ -234,7 +234,7 @@
                     <template
                         v-for="(item, index) in users.filter(x => x.role_id == 3 && (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
                         <div v-if="index" class="h-[0.125rem] rounded-full bg-[#08B3B9] my-2"></div>
-                        <li @click="admin.addReferee({ referees: [item.id] }, research.id)"
+                        <li @click="addR(item.id)"
                             class="flex items-center justify-between h-16 text-xl cursor-pointer hover:bg-[#A6EFF2] rounded-[1rem] px-4">
                             <span>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</span>
                             <span>{{ item.personal_code }}</span>
@@ -355,6 +355,14 @@ const setOpinion = () => {
     }
     admin.setOpinion(req, refer.value.id, id)
     opinion.value = ""
+}
+
+const addR = (refId) => {
+    let temp = []
+    for(let ref of research.value.referees) temp.push(ref.id)
+    temp.push(refId)
+    admin.addReferee({ referees: temp }, research.value.id)
+    isOpen.value = false
 }
 </script>
 

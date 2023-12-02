@@ -64,11 +64,11 @@
 
                 <UiSelect v-if="!isLogin" class="w-[18rem]" :value="province" :error="isConfirmed && !province"
                     @pick="((picked) => province = picked)" placeHolder="استان"
-                    :items="cities.provinces.value.map(x => x.title)" :isInput="true" :strict="true"></UiSelect>
+                    :items="cities.provinces.value?.map(x => x.title)" :isInput="true" :strict="true"></UiSelect>
 
                 <UiSelect v-if="!isLogin" class="w-[18rem]" :value="city" @pick="((picked) => city = picked)"
                     :error="isConfirmed && !city" placeHolder="شهر"
-                    :items="(province ? cities.cities.value.filter(x => x.parent == provinceID.id).map(x => x.title) : [])"
+                    :items="(province ? cities.cities.value?.filter(x => x.parent == provinceID.id)?.map(x => x.title) : [])"
                     :isInput="true" :strict="true"></UiSelect>
 
                 <div v-if="!isLogin" class="h-14 w-[18rem] relative">
@@ -179,7 +179,9 @@ const address = ref("")
 const national = ref("")
 
 const cities = useCities()
-cities.getCities()
+if (cities.cities.value == null) {
+    cities.getCities()
+}
 
 const lastName = ref("")
 const city = ref("")

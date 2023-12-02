@@ -5,6 +5,7 @@ export const useUser = () => {
     const coords = useState('coords', () => null)
     const teacher = useState('teacher', () => null)
     const sidebar = useState('sidebar', () => false)
+    const stats = useState('stats', () => null)
 
 
     const getUser = async (req) => {
@@ -77,5 +78,40 @@ export const useUser = () => {
         })
     }
 
-    return { getUser, user, coords,teacher,getTeacher, sidebar }
+    const getStats =  async (req) => {
+        await useFetch('https://api.37pajoohesh.ir/api/statistics', {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('get stats')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'POST'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("stats: " + error)
+                navigateTo("/auth")
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    stats.value = response._data
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("stats: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    return { stats, getStats,getUser, user, coords,teacher,getTeacher, sidebar }
 }

@@ -6,23 +6,18 @@
             <img class="absolute left-10 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg" alt="down">
         </div>
 
-        <div v-if="false" class="flex mt-4 gap-3">
-            <div
-                class="flex-1 h-14 w-full px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
-                کرمانشاه
-                <img class="absolute left-10 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg"
-                    alt="down">
-            </div>
+        <div class="flex mt-4 gap-3 flex-wrap">
+            <UiSelect class="w-[18rem] grow shrink-0" :value="city" @pick="((picked) => getReport(picked))"
+                placeHolder="استان" :items="cities.cities.value?.map(x => x.title)" :isInput="true" :strict="true">
+            </UiSelect>
 
-            <div
-                class="flex-1 h-14 w-full px-12 pl-14 bg-white rounded-[1.5rem] text-2xl font-bold flex items-center justify-center relative cursor-pointer text-[#222323] pb-1">
-                1401
-                <img class="absolute left-10 top-0 bottom-0 my-auto h-[1.125rem] pt-1" src="/icons/main/down.svg"
-                    alt="down">
-            </div>
+
+            <UiSelect class="w-[18rem] grow shrink-0" :value="year" @pick="((picked) => year = picked)"
+                placeHolder="سال" :items="years" :isInput="true" :strict="true">
+            </UiSelect>
         </div>
 
-        <div class="flex flex-wrap items-center gap-8 justify-between mt-20">
+        <div class="flex flex-wrap items-center gap-8 justify-between mt-10">
             <div class="flex-1">
                 <div class="bg-white rounded-[1.5rem] p-8 pb-6 font-bold">
                     <div class="w-[14rem] h-[14rem] relative mx-auto">
@@ -38,8 +33,7 @@
                             <div>
                                 ابتدایی
                                 <br>
-                                <!-- {{ stats[0] }} -->
-                                -
+                                {{ stats[0] }}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -47,8 +41,7 @@
                             <div>
                                 متوسطه
                                 <br>
-                                <!-- {{ stats[1] }} -->
-                                -
+                                {{ stats[1] }}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -56,16 +49,14 @@
                             <div>
                                 تکمیلی
                                 <br>
-                                <!-- {{ stats[2] }} -->
-                                -
+                                {{ stats[2] }}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    <!-- {{ stats.reduce((a, b) => a + b) }} -->
-                    -
+                    {{ stats.reduce((a, b) => a + b) }}
                 </div>
             </div>
 
@@ -84,8 +75,7 @@
                             <div>
                                 خانم
                                 <br>
-                                <!-- {{ statsG[0] }} -->
-                                -
+                                {{ statsG[0] }}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -93,16 +83,14 @@
                             <div>
                                 آقا
                                 <br>
-                                <!-- {{ statsG[1] }} -->
-                                -
+                                {{ statsG[1] }}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    <!-- {{ statsG.reduce((a, b) => a + b) }} -->
-                    -
+                    {{ statsG.reduce((a, b) => a + b) }}
                 </div>
             </div>
 
@@ -121,8 +109,7 @@
                             <div>
                                 گروهی
                                 <br>
-                                <!-- {{ statsT[0] }} -->
-                                -
+                                {{ statsT[0] }}
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -130,16 +117,14 @@
                             <div>
                                 فردی
                                 <br>
-                                <!-- {{ statsT[1] }} -->
-                                -
+                                {{ statsT[1] }}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[1.5rem] flex items-center justify-center h-14 mt-4 text-[1.75rem] font-bold">
-                    <!-- {{ statsT.reduce((a, b) => a + b) }} -->
-                    -
+                    {{ statsT.reduce((a, b) => a + b) }}
                 </div>
             </div>
         </div>
@@ -148,7 +133,24 @@
 
 <script setup>
 
-const stats = ref([1000, 2000, 300])
+const user = useUser()
+user.getStats({
+    "year": "1402",
+    "city": 967,
+    "line": 1
+})
+
+const statics = computed(() => user.stats.value)
+const city = ref("کرمانشاه")
+const cityID = computed(() => city.value ? cities.cities.value.filter(x => x.title == city.value)[0] : null)
+const year = ref("1402")
+const years = ref(["1402"])
+const cities = useCities()
+if (cities.cities.value == null) {
+    cities.getCities()
+}
+
+const stats = computed(() => [statics.value?.grade_primary,statics.value?.grade_middle,statics.value?.grade_high_school])
 const total = computed(() => stats.value.map((x) => x / stats.value.reduce((a, b) => a + b) * 100))
 const ranks = computed(() => {
     let temp = []
@@ -172,7 +174,7 @@ const show = computed(() => {
 })
 const colors = ref(['#D9DDE1', '#509499', '#DE3D3D'])
 
-const statsG = ref([800, 410])
+const statsG = computed(() => [statics.value?.women,statics.value?.men])
 const totalG = computed(() => statsG.value.map((x) => x / statsG.value.reduce((a, b) => a + b) * 100))
 const ranksG = computed(() => {
     let temp = []
@@ -196,7 +198,7 @@ const showG = computed(() => {
 })
 const colorsG = ref(['#E74C8A', '#EBEBEB'])
 
-const statsT = ref([200, 350])
+const statsT = computed(() => [statics.value?.group,statics.value?.total])
 const totalT = computed(() => statsT.value.map((x) => x / statsT.value.reduce((a, b) => a + b) * 100))
 const ranksT = computed(() => {
     let temp = []
@@ -220,4 +222,15 @@ const showT = computed(() => {
 })
 const colorsT = ref(['#A7DA42', '#EBEBEB'])
 
+
+const getReport = (picked) => {
+    city.value = picked
+    const req = {
+        year: year.value,
+        city: cityID.value.id,
+        line: 1
+    }
+    user.getStats(req)
+    console.log(req)
+}
 </script>

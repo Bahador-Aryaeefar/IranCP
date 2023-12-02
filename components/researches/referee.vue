@@ -30,7 +30,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in researches?.filter(x => x.name.includes(search))">
+                    <tr v-for="item in researches?.map(x => x.research).filter(x => x)">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item?.user?.name }}</td>
