@@ -8,9 +8,13 @@
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
 
-            <div @click="isOpen = true"
-                class="cursor-pointer rounded-full flex items-center justify-center w-14 h-14 text-[3rem] pb-1.5 text-white bg-[#08B3B9] shrink-0">
-                +</div>
+            <div class="w-14 h-14 shrink-0 rounded-full bg-[#08B3B9] relative cursor-pointer shadow-md"
+                @click="isOpen = true">
+                <div class="w-[50%] h-[0.25rem] bg-white rounded-full absolute top-0 bottom-0 left-0 right-0 m-auto">
+                </div>
+                <div class="h-[50%] w-[0.25rem] bg-white rounded-full absolute top-0 bottom-0 left-0 right-0 m-auto">
+                </div>
+            </div>
         </div>
 
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
@@ -26,7 +30,7 @@
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
                     <tr v-for="item in coords?.filter(x => x.date.includes(search))">
                         <td>{{ item.date }}</td>
-                        <td>
+                        <td class="max-w-full">
                             <div class="flex gap-6 justify-between px-6">
                                 <div class="flex gap-1 items-center cursor-pointer"
                                     @click="admin.changeCoords({ status: 0 }, item.id)">
@@ -40,7 +44,7 @@
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
                                     @click="admin.changeCoords({ status: 2 }, item.id)">
-                                    <UiRadioButton  :isSelected="item.status == 2"></UiRadioButton>
+                                    <UiRadioButton :isSelected="item.status == 2"></UiRadioButton>
                                     مرحله دوم
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
@@ -51,7 +55,7 @@
                             </div>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="admin.deleteCoords(item.id)">حذف</span>
+                            <span class="cursor-pointer" @click="isDelete = true; deleteId = item.id">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -88,12 +92,40 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div v-if="isDelete"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
+            @click="isDelete = false">
+            <div class="w-[60rem] bg-white rounded-[0.5rem] p-6" @click.stop="">
+                <img class="w-[6rem] h-[6rem] mb-6 mx-auto" src="/icons/orange-warning.svg" alt="fail">
+                <div class="overflow-auto max-h-[30vh] px-2">
+                    <p class="text-center text-lg text-crs-black-1">
+                        آیا از حذف دوره اطمینان دارید؟
+                    </p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button @click="admin.deleteCoords(deleteId); isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
+                        بله
+                    </button>
+                    <button @click="isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#57C5C6] text-white mt-10 block">
+                        خیر
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 const search = ref("")
 const admin = useAdmin()
+
+const isDelete = ref(false)
+const deleteId = ref(null)
 admin.getCoords()
 const { coords } = useAdmin()
 const isOpen = ref(false)
@@ -134,8 +166,5 @@ td {
     padding-inline: 1.5rem;
     padding-block: 0.5rem;
     box-shadow: 0 0.25rem 0.375rem -0.063rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1);
-    max-width: 20rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}</style>
+}
+</style>

@@ -1,11 +1,7 @@
 <template>
     <div class="max-w-[50rem] mx-auto">
-        <div class="bg-white rounded-[1rem] py-6 px-10">
-            <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
-                ویرایش
-            </h1>
-
-            <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
+        <div class="bg-white rounded-[2rem] py-6 px-10">
+            <form class="flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
                 <div class="h-14 w-[18rem] relative">
                     <input id="email" v-model="email"
                         :class="(isConfirmed && !email) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
@@ -109,36 +105,36 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-[1rem] py-6 px-10 mt-10">
-            <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
-                تغییر رمز
-            </h1>
+        <div class="mt-16 max-w-[50rem] mx-auto">
+            <div class="text-black font-bold text-2xl text-center">تغییر رمز</div>
+            <div class="my-6 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+            <div class="bg-white rounded-[2rem] py-6 px-10">
+                <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
+                    <div class="h-14 w-[18rem] relative">
+                        <input id="password" v-model="password"
+                            :class="(passCon && !password) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                            class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                            :type="isPass ? 'password' : 'text'" placeholder="رمز">
+                        <img @click="isPass = !isPass"
+                            class="w-6 absolute rtl:left-4 ltr:right-4 top-0 bottom-0 my-auto cursor-pointer"
+                            :src="`/icons/auth/visibility${isPass ? '' : '-off'}.svg`" alt="visibility">
+                    </div>
 
-            <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
-                <div class="h-14 w-[18rem] relative">
-                    <input id="password" v-model="password"
-                        :class="(passCon && !password) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                        :type="isPass ? 'password' : 'text'" placeholder="رمز">
-                    <img @click="isPass = !isPass"
-                        class="w-6 absolute rtl:left-4 ltr:right-4 top-0 bottom-0 my-auto cursor-pointer"
-                        :src="`/icons/auth/visibility${isPass ? '' : '-off'}.svg`" alt="visibility">
+                    <div class="h-14 w-[18rem] relative">
+                        <input id="confirm" v-model="confirm"
+                            :class="(passCon && (!confirm || confirm != password)) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                            class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
+                            :type="isPass ? 'password' : 'text'" placeholder="تکرار رمز">
+                        <img @click="isPass = !isPass"
+                            class="w-6 absolute rtl:left-4 ltr:right-4 top-0 bottom-0 my-auto cursor-pointer"
+                            :src="`/icons/auth/visibility${isPass ? '' : '-off'}.svg`" alt="visibility">
+                    </div>
+                </form>
+
+                <div @click="change"
+                    class="flex items-center justify-center mx-auto h-14 mt-4 rounded-full bg-[#57C5C6] cursor-pointer gap-2 text-white text-xl">
+                    ثبت
                 </div>
-
-                <div class="h-14 w-[18rem] relative">
-                    <input id="confirm" v-model="confirm"
-                        :class="(passCon && (!confirm || confirm != password)) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                        :type="isPass ? 'password' : 'text'" placeholder="تکرار رمز">
-                    <img @click="isPass = !isPass"
-                        class="w-6 absolute rtl:left-4 ltr:right-4 top-0 bottom-0 my-auto cursor-pointer"
-                        :src="`/icons/auth/visibility${isPass ? '' : '-off'}.svg`" alt="visibility">
-                </div>
-            </form>
-
-            <div @click="change"
-                class="flex items-center justify-center mx-auto h-14 mt-4 rounded-full bg-[#57C5C6] cursor-pointer gap-2 text-white text-xl">
-                ثبت
             </div>
         </div>
     </div>ّ
@@ -172,10 +168,8 @@ const province = ref(cities.searchProvince(user.value.province_id)?.title)
 const provinceID = computed(() => province.value ? cities.provinces.value.filter(x => x.title == province.value)[0] : null)
 const gender = ref(genders[user.value.gender])
 
-const genderID = computed(() =>
-{
-    switch (gender.value)
-    {
+const genderID = computed(() => {
+    switch (gender.value) {
         case 'مرد':
             return 0
         case 'زن':
@@ -188,8 +182,7 @@ const genderID = computed(() =>
 const mobile = ref(user.value.mobile)
 const code = ref(user.value.personal_code)
 
-const edit = () =>
-{
+const edit = () => {
     isConfirmed.value = true
     let isValid = true
 
@@ -237,8 +230,7 @@ const edit = () =>
 }
 
 const passCon = ref(false)
-const change = () =>
-{
+const change = () => {
     passCon.value = true
     let isValid = true
 

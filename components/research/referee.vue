@@ -217,7 +217,7 @@ const description = ref(refer?.value?.description)
 const questions = ref(referee.questions.value ? referee.questions.value.map(x => {
     let temp = refer.value?.questions.filter(y => x.id == y.pivot.question_id)[0]
     if (temp) x.score = temp.pivot.score
-    else x.score = OnErrorEventHandlerNonNull
+    else x.score = null
     return x
 }) : null)
 

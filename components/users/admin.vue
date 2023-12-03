@@ -7,6 +7,8 @@
                     type="text" placeholder="جستجو نام">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
+            <UiSelect class="w-[18rem] split:grow" :value="role" @pick="((picked) => role = picked)" placeHolder="سمت"
+                :items="roles"></UiSelect>
         </div>
 
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
@@ -14,74 +16,61 @@
                 <thead class="text-white font-bold text-lg whitespace-nowrap">
                     <tr>
                         <th>شماره</th>
-                        <th>ایمیل</th>
                         <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>کد پرسنلی</th>
-                        <th>کد ملی</th>
-                        <th>جنسیت</th>
+                        <!-- <th>کد پرسنلی</th>
+                        <th>کد ملی</th> -->
                         <th>استان</th>
                         <th>شهر</th>
-                        <th>مدرک تحصیلی</th>
-                        <th>رشته تحصیلی</th>
-                        <th>سابقه کار</th>
-                        <th>سمت فعلی</th>
-                        <th>سابقه سمت فعلی</th>
-                        <th>شماره تلفن</th>
-                        <th>آدرس محل کار</th>
                         <th>وضعیت</th>
                         <th>نقش</th>
-                        <th>جزئیات</th>
+                        <th>پروفایل</th>
                         <th>حذف</th>
                     </tr>
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in users?.filter(x => (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
+                    <tr
+                        v-for="item in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search)))">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.last_name }}</td>
-                        <td>{{ item.personal_code }}</td>
-                        <td>{{ item.national_code }}</td>
-                        <td>{{ genders[item.gender] }}</td>
+                        <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
+                        <!-- <td>{{ item.personal_code }}</td>
+                        <td>{{ item.national_code }}</td> -->
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
-                        <td>{{ item.degree_education }}</td>
-                        <td>{{ item.discipline }}</td>
-                        <td>{{ item.work_experience }}</td>
-                        <td>{{ item.current_position }}</td>
-                        <td>{{ item.history_current_position }}</td>
-                        <td>{{ item.mobile }}</td>
-                        <td>{{ item.work_address }}</td>
-                        <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="admin.changeUser({ status: 0 }, item.id)">
-                                <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
-                                عدم تایید
-                            </div>
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="admin.changeUser({ status: 1 }, item.id)">
-                                <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
-                                تایید
+                        <td>
+                            <div class="flex justify-between px-6 gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ status: 0 }, item.id)">
+                                    <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
+                                    عدم تایید
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ status: 1 }, item.id)">
+                                    <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
+                                    تایید
+                                </div>
                             </div>
                         </td>
                         <td class="!max-w-[100rem]">
-                            <div class="flex gap-6 ">
-                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 5 }, item.id)">
-                                    <UiRadioButton :isSelected="item.role_id == 5" ></UiRadioButton>
+                            <div class="flex justify-between px-6 gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ role_id: 5 }, item.id)">
+                                    <UiRadioButton :isSelected="item?.role_id == 5"></UiRadioButton>
                                     دبیر
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 4 }, item.id)">
-                                    <UiRadioButton :isSelected="item.role_id == 4"></UiRadioButton>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ role_id: 4 }, item.id)">
+                                    <UiRadioButton :isSelected="item?.role_id == 4"></UiRadioButton>
                                     کارشناس
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 3 }, item.id)">
-                                    <UiRadioButton :isSelected="item.role_id == 3"></UiRadioButton>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ role_id: 3 }, item.id)">
+                                    <UiRadioButton :isSelected="item?.role_id == 3"></UiRadioButton>
                                     داور
                                 </div>
-                                <div class="flex gap-1 items-center cursor-pointer" @click="admin.changeUser({ role_id: 1 }, item.id)">
-                                    <UiRadioButton :isSelected="item.role_id == 2 || item.role_id == 1"></UiRadioButton>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeUser({ role_id: 1 }, item.id)">
+                                    <UiRadioButton :isSelected="item?.role_id == 2 || item?.role_id == 1"></UiRadioButton>
                                     مدیر
                                 </div>
                             </div>
@@ -90,24 +79,78 @@
                             <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="admin.deleteUser(item.id)">حذف</span>
+                            <span class="cursor-pointer" @click="isDelete = true; deleteId = item.id">حذف</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+
+
+        <div v-if="isDelete"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
+            @click="isDelete = false">
+            <div class="w-[60rem] bg-white rounded-[0.5rem] p-6" @click.stop="">
+                <img class="w-[6rem] h-[6rem] mb-6 mx-auto" src="/icons/orange-warning.svg" alt="fail">
+                <div class="overflow-auto max-h-[30vh] px-2">
+                    <p class="text-center text-lg text-crs-black-1">
+                        آیا از حذف کاربر اطمینان دارید؟
+                    </p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button @click="admin.deleteUser(deleteId);  isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
+                        بله
+                    </button>
+                    <button @click="isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#57C5C6] text-white mt-10 block">
+                        خیر
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
+
 const search = ref("")
 const admin = useAdmin()
+const isDelete = ref(false)
+const deleteId = ref(null)
 admin.getUsers()
-const genders = ['مرد', 'زن']
+const roles = [
+    'همه',
+    'دبیر',
+    'کارشناس',
+    'داور',
+    'مدیر',
+]
+const role = ref("")
 const users = computed(() => admin.users.value)
 const cities = useCities()
 if (cities.cities.value == null) {
     cities.getCities()
+}
+
+const isRole = (ro) => {
+    if (!role.value || role.value == "همه") return true
+    switch (ro) {
+        case 1:
+        case 2:
+            if (role.value == "مدیر") return true
+            else return false
+        case 3:
+            if (role.value == "داور") return true
+            else return false
+        case 4:
+            if (role.value == "کارشناس") return true
+            else return false
+        case 5:
+            if (role.value == "دبیر") return true
+            else return false
+    }
 }
 </script>
 

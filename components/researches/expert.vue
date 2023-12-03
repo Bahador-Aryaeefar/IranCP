@@ -15,15 +15,8 @@
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
-                        <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
-                        <th>مقطع تحصیلی اثر</th>
-                        <th>نوع اثر</th>
-                        <th>همکاران</th>
-                        <th>چکیده اثر</th>
                         <th>وضعیت</th>
                         <th>جزئیات</th>
                     </tr>
@@ -33,25 +26,20 @@
                     <tr v-for="item in researches?.filter(x => x.name.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item?.user?.name }}</td>
-                        <td>{{ item?.user?.last_name }}</td>
-                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
-                        <td>{{ grades[item.grade_id - 1] }}</td>
-                        <td>{{ types[item.individual] }}</td>
-                        <td>{{ item.partners }}</td>
-                        <td class="max-w-[20rem] truncate">{{ item.description }}</td>
-                        <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="expert.changeResearch({ expert_confirm: 0 }, item.id)">
-                                <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
-                                عدم تایید
-                            </div>
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="expert.changeResearch({ expert_confirm: 1 }, item.id)">
-                                <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
-                                تایید
+                        <td>
+                            <div class="flex justify-between px-6 gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="expert.changeResearch({ expert_confirm: 0 }, item.id)">
+                                    <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
+                                    عدم تایید
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="expert.changeResearch({ expert_confirm: 1 }, item.id)">
+                                    <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
+                                    تایید
+                                </div>
                             </div>
                         </td>
                         <td class="text-[#08B3B9]">

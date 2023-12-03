@@ -1,6 +1,6 @@
 <template>
     <div>
-        <QuestionsAdmin v-if="user.role_id == 1 || user.role_id == 2" class="mt-10"></QuestionsAdmin>
+        <QuestionsAdmin v-if="user?.role_id == 1 || user?.role_id == 2" class="mt-10"></QuestionsAdmin>
     </div>
 </template>
 

@@ -15,15 +15,8 @@
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
-                        <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
-                        <th>مقطع تحصیلی اثر</th>
-                        <th>نوع اثر</th>
-                        <th>همکاران</th>
-                        <th>چکیده اثر</th>
                         <th>وضعیت</th>
                         <th>جزئیات</th>
                         <th>حذف</th>
@@ -34,42 +27,62 @@
                     <tr v-for="item in researches?.filter(x => x.name.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item?.user?.name }}</td>
-                        <td>{{ item?.user?.last_name }}</td>
-                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
-                        <td>{{ grades[item.grade_id - 1] }}</td>
-                        <td>{{ types[item.individual] }}</td>
-                        <td>{{ item.partners }}</td>
-                        <td class="max-w-[20rem] truncate">{{ item.description }}</td>
-                        <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="admin.changeResearch({ expert_confirm: 0 }, item.id)">
-                                <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
-                                عدم تایید
-                            </div>
-                            <div class="flex gap-1 items-center cursor-pointer"
-                                @click="admin.changeResearch({ expert_confirm: 1 }, item.id)">
-                                <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
-                                تایید
+                        <td>
+                            <div class="flex justify-between px-6 gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeResearch({ expert_confirm: 0 }, item.id)">
+                                    <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
+                                    عدم تایید
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="admin.changeResearch({ expert_confirm: 1 }, item.id)">
+                                    <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
+                                    تایید
+                                </div>
                             </div>
                         </td>
                         <td class="text-[#08B3B9]">
                             <NuxtLink :to="`/researches/${item.id}`">مشاهده</NuxtLink>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="admin.deleteResearch(item.id)">حذف</span>
+                            <span class="cursor-pointer" @click="deleteId = item.id; isDelete = true">حذف</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div v-if="isDelete"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
+            @click="isDelete = false">
+            <div class="w-[60rem] bg-white rounded-[0.5rem] p-6" @click.stop="">
+                <img class="w-[6rem] h-[6rem] mb-6 mx-auto" src="/icons/orange-warning.svg" alt="fail">
+                <div class="overflow-auto max-h-[30vh] px-2">
+                    <p class="text-center text-lg text-crs-black-1">
+                        آیا از حذف اثر اطمینان دارید؟
+                    </p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button @click="admin.deleteResearch(deleteId); isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
+                        بله
+                    </button>
+                    <button @click="isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#57C5C6] text-white mt-10 block">
+                        خیر
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 const search = ref("")
+const isDelete = ref(false)
+const deleteId = ref(null)
 const admin = useAdmin()
 admin.getResearches()
 const researches = computed(() => admin.researches.value)

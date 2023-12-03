@@ -114,13 +114,14 @@
                             <td>{{ item.personal_code }}</td>
                             <td>{{ item.mobile }}</td>
                             <td>
-                                <NuxtLink :to="`/users/${item.id}`" class="cursor-pointer text-[#08B3B9]">مشاهده</NuxtLink>
+                                <span @click="refe = item; isRefe = true"
+                                    class="cursor-pointer text-[#08B3B9]">مشاهده</span>
                             </td>
                             <td>
                                 <span class="cursor-pointer text-[#08B3B9]">مشاهده</span>
                             </td>
                             <td>
-                                <span @click="admin.deleteReferee({ referees: [item.id] }, research.id)"
+                                <span @click="deleteId = item.id; isDelete = true"
                                     class="cursor-pointer text-[#EE0035]">حذف</span>
                             </td>
                         </tr>
@@ -232,7 +233,7 @@
 
                 <ul class="mt-4 overflow-auto max-h-[20rem] FirefoxScroll">
                     <template
-                        v-for="(item, index) in users.filter(x => x.role_id == 3 && (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
+                        v-for="(item, index) in users.filter(x => x?.role_id == 3 && (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
                         <div v-if="index" class="h-[0.125rem] rounded-full bg-[#08B3B9] my-2"></div>
                         <li @click="addR(item.id)"
                             class="flex items-center justify-between h-16 text-xl cursor-pointer hover:bg-[#A6EFF2] rounded-[1rem] px-4">
@@ -243,12 +244,116 @@
                 </ul>
             </div>
         </div>
+
+
+
+        <div v-if="isDelete"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
+            @click="isDelete = false">
+            <div class="w-[60rem] bg-white rounded-[0.5rem] p-6" @click.stop="">
+                <img class="w-[6rem] h-[6rem] mb-6 mx-auto" src="/icons/orange-warning.svg" alt="fail">
+                <div class="overflow-auto max-h-[30vh] px-2">
+                    <p class="text-center text-lg text-crs-black-1">
+                        آیا از حذف داور اطمینان دارید؟
+                    </p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button @click="admin.deleteReferee({ referees: [deleteId] }, research.id); isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
+                        بله
+                    </button>
+                    <button @click="isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#57C5C6] text-white mt-10 block">
+                        خیر
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div v-if="isRefe"
+            class=" overflow-hidden fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] flex items-center justify-center break-words"
+            @click="isRefe = false">
+            <div class="w-[60rem] bg-white rounded-[2rem] p-6 overflow-auto max-h-[calc(100vh-10rem)]" @click.stop="">
+                <div class="max-w-[40rem] mx-auto">
+                    <div class="text-center text-black font-bold text-2xl shrink-0">
+                        <div class="w-[7rem] h-[7rem] rounded-full mx-auto border-[0.25rem] border-[#1DA8A6] shadow-md bg-contain bg-center bg-white mb-4 bg-no-repeat"
+                            style="background-image: url('/images/profile.png'); background-size: 70%;"></div>
+                        {{ (refe?.name + ' ' + ((refe?.last_name) ? refe?.last_name : '')) }}
+                    </div>
+
+                    <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl mt-8">{{
+                        refe.current_position }}</div>
+
+                    <div class="flex gap-2 mt-2">
+                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                            {{ refe.degree_education }}</div>
+                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                            {{ refe.discipline }}</div>
+                    </div>
+
+                    <div class="flex gap-2 mt-2">
+                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                            {{ cities.searchProvince(refe.province_id)?.title }}</div>
+                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                            {{ cities.searchCity(refe.city_id)?.title }}</div>
+                    </div>
+
+                    <ul class="bg-white rounded-[2rem] py-4 px-8 mt-4 text-xl space-y-3">
+                        <li class="flex justify-between">
+                            کد ملی :
+                            <span>{{ refe.national_code }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            کد پرسنلی :‌
+                            <span>{{ refe.personal_code }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            ایمیل :‌
+                            <span>{{ refe.email }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            شماره تماس :‌
+                            <span>{{ refe.mobile }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            سابقه کار :
+                            <span>{{ refe.work_experience }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            سمت فعلی :
+                            <span>{{ refe.current_position }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            سابقه سمت فعلی :
+                            <span>{{ refe.history_current_position }}</span>
+                        </li>
+                        <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                        <li class="flex justify-between">
+                            محل کار :
+                            <span>{{ refe.work_address }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 
 const isOpen = ref(false)
+const isDelete = ref(false)
+const deleteId = ref(null)
+const isRefe = ref(false)
+const refe = ref(null)
 const search = ref("")
 const { id } = useRoute().params
 const cities = useCities()
@@ -297,13 +402,14 @@ const numbers = [
     "پنجم",
     "ششم"
 ]
+const genders = ["مرد", "زن"]
 
 const description = ref(refer?.value?.description)
 
 const questions = ref(admin.questions.value ? admin.questions.value.map(x => {
     let temp = refer.value?.questions.filter(y => x.id == y.pivot.question_id)[0]
     if (temp) x.score = temp.pivot.score
-    else x.score = OnErrorEventHandlerNonNull
+    else x.score = null
     return x
 }) : null)
 
@@ -359,7 +465,7 @@ const setOpinion = () => {
 
 const addR = (refId) => {
     let temp = []
-    for(let ref of research.value.referees) temp.push(ref.id)
+    for (let ref of research.value.referees) temp.push(ref.id)
     temp.push(refId)
     admin.addReferee({ referees: temp }, research.value.id)
     isOpen.value = false

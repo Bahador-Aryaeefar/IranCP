@@ -13,71 +13,70 @@
             <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
 
             <div class="mt-6">
-                <ul class="text-xl text-black flex flex-wrap gap-10 gap-y-5 justify-center">
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        ایمیل :‌
-                        {{ user.email }}
-                    </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        کد پرسنلی :
-                        {{ user.personal_code }}
-                    </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                <ul class="bg-white rounded-[2rem] py-4 px-8 mt-4 text-xl space-y-3">
+                    <li class="flex justify-between">
                         کد ملی :
-                        {{ user.national_code }}
+                        <span>{{ user.national_code }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        کد پرسنلی :‌
+                        <span>{{ user.personal_code }}</span>
+                    </li>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        ایمیل :‌
+                        <span>{{ user.email }}</span>
+                    </li>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
                         استان :
-                        {{ cities.searchProvince(user.province_id)?.title }}
+                        <span>{{ cities.searchProvince(user.province_id)?.title }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
                         شهر :‌
-                        {{ cities.searchCity(user.city_id)?.title }}
+                        <span>{{ cities.searchCity(user.city_id)?.title }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
                         جنسیت :‌
-                        {{ genders[user.gender] }}
+                        <span>{{ genders[user.gender] }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        شماره تماس :‌
+                        <span>{{ user.mobile }}</span>
+                    </li>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
                         مدرک تحصیلی :‌
-                        {{ user.degree_education }}
+                        <span>{{ user.degree_education }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
                         رشته تحصیلی :‌
-                        {{ user.discipline }}
+                        <span>{{ user.discipline }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        سابقه کار :‌
-                        {{ user.work_experience }}
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        سابقه کار :
+                        <span>{{ user.work_experience }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        سمت فعلی :‌
-                        {{ user.current_position }}
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        سمت فعلی :
+                        <span>{{ user.current_position }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        سابقه سمت فعلی :‌
-                        {{ user.history_current_position }}
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        سابقه سمت فعلی :
+                        <span>{{ user.history_current_position }}</span>
                     </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        شماره تلفن :‌
-                        {{ user.mobile }}
-                    </li>
-                    <li class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-[#1DA8A6] mt-2.5 shrink-0"></div>
-                        محل کار :‌
-                        {{ user.work_address }}
+                    <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                    <li class="flex justify-between">
+                        محل کار :
+                        <span>{{ user.work_address }}</span>
                     </li>
                 </ul>
             </div>

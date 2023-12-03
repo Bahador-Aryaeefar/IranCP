@@ -1,9 +1,6 @@
 <template>
     <div class="bg-white rounded-[1rem] py-6 px-10 m-auto">
-        <h1 class="text-[2rem] font-bold leading-[3.5rem] text-[#57C5C6] text-center">
-            ویرایش اطلاعات
-        </h1>
-        <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
+        <form class="flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
             <div class="h-14 w-[18rem] relative">
                 <input id="email" v-model="email"
                     :class="(isConfirmed && !email) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"

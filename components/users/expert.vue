@@ -14,52 +14,37 @@
                 <thead class="text-white font-bold text-lg whitespace-nowrap">
                     <tr>
                         <th>شماره</th>
-                        <th>ایمیل</th>
                         <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>کد پرسنلی</th>
-                        <th>کد ملی</th>
-                        <th>جنسیت</th>
+                        <!-- <th>کد پرسنلی</th>
+                        <th>کد ملی</th> -->
                         <th>استان</th>
                         <th>شهر</th>
-                        <th>مدرک تحصیلی</th>
-                        <th>رشته تحصیلی</th>
-                        <th>سابقه کار</th>
-                        <th>سمت فعلی</th>
-                        <th>سابقه سمت فعلی</th>
-                        <th>شماره تلفن</th>
-                        <th>آدرس محل کار</th>
                         <th>وضعیت</th>
-                        <th>جزئیات</th>
+                        <th>پروفایل</th>
                     </tr>
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in users?.filter(x => (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
+                    <tr
+                        v-for="item in users?.filter(x => (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.last_name }}</td>
-                        <td>{{ item.personal_code }}</td>
-                        <td>{{ item.national_code }}</td>
-                        <td>{{ genders[item.gender] }}</td>
+                        <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
+                        <!-- <td>{{ item.personal_code }}</td>
+                        <td>{{ item.national_code }}</td> -->
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
-                        <td>{{ item.degree_education }}</td>
-                        <td>{{ item.discipline }}</td>
-                        <td>{{ item.work_experience }}</td>
-                        <td>{{ item.current_position }}</td>
-                        <td>{{ item.history_current_position }}</td>
-                        <td>{{ item.mobile }}</td>
-                        <td>{{ item.work_address }}</td>
-                        <td class="flex gap-6">
-                            <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 0},item.id)">
-                                <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
-                                عدم تایید
-                            </div>
-                            <div class="flex gap-1 items-center cursor-pointer" @click="expert.changeUser({status: 1},item.id)">
-                                <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
-                                تایید
+                        <td>
+                            <div class="flex justify-between px-6 gap-6 ">
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="expert.changeUser({ status: 0 }, item.id)">
+                                    <UiRadioButton :isSelected="item.status == '0'"></UiRadioButton>
+                                    عدم تایید
+                                </div>
+                                <div class="flex gap-1 items-center cursor-pointer"
+                                    @click="expert.changeUser({ status: 1 }, item.id)">
+                                    <UiRadioButton :isSelected="item.status == '1'"></UiRadioButton>
+                                    تایید
+                                </div>
                             </div>
                         </td>
                         <td class="text-[#08B3B9]">
@@ -104,5 +89,4 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-</style>
+}</style>

@@ -16,15 +16,8 @@
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
-                        <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
-                        <th>مقطع تحصیلی اثر</th>
-                        <th>نوع اثر</th>
-                        <th>همکاران</th>
-                        <th>چکیده اثر</th>
                         <th>جزئیات</th>
                     </tr>
                 </thead>
@@ -33,14 +26,7 @@
                     <tr v-for="item in researches?.map(x => x.research).filter(x => x)">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item?.user?.name }}</td>
-                        <td>{{ item?.user?.last_name }}</td>
-                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
-                        <td>{{ categories[item.category_id - 1] }}</td>
-                        <td>{{ grades[item.grade_id - 1] }}</td>
-                        <td>{{ types[item.individual] }}</td>
-                        <td>{{ item.partners }}</td>
                         <td class="max-w-[20rem] truncate">{{ item.description }}</td>
                         <td class="text-[#08B3B9]">
                             <NuxtLink :to="`/researches/${item.id}`">مشاهده</NuxtLink>

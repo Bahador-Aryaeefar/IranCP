@@ -18,7 +18,7 @@
                     آثار
                 </NuxtLink>
 
-                <template v-if="[1, 2, 4].includes(user.role_id)">
+                <template v-if="[1, 2, 4].includes(user?.role_id)">
                     <hr class="border-[#08B3B9] my-2">
 
                     <NuxtLink to="/users" :class="route.path == '/users' ? 'bg-[#F5F6FA] shadow-md' : ''"
@@ -28,7 +28,7 @@
                     </NuxtLink>
                 </template>
 
-                <template v-if="[1, 2].includes(user.role_id)">
+                <template v-if="[1, 2].includes(user?.role_id)">
                     <hr class="border-[#08B3B9] my-2">
 
                     <NuxtLink to="/period" :class="route.path == '/period' ? 'bg-[#F5F6FA] shadow-md' : ''"
@@ -38,7 +38,7 @@
                     </NuxtLink>
                 </template>
 
-                <template v-if="[1, 2].includes(user.role_id)">
+                <template v-if="[1, 2].includes(user?.role_id)">
                     <hr class="border-[#08B3B9] my-2">
 
                     <NuxtLink to="/questions" :class="route.path == '/questions' ? 'bg-[#F5F6FA] shadow-md' : ''"

@@ -8,9 +8,13 @@
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
 
-            <div @click="isOpen = true; isEdit = false; title = ''; factor = ''"
-                class="cursor-pointer rounded-full flex items-center justify-center w-14 h-14 text-[3rem] pb-1.5 text-white bg-[#08B3B9] shrink-0">
-                +</div>
+            <div class="w-14 h-14 shrink-0 rounded-full bg-[#08B3B9] relative cursor-pointer shadow-md"
+                @click="isOpen = true; isEdit = false; title = ''; factor = ''">
+                <div class="w-[50%] h-[0.25rem] bg-white rounded-full absolute top-0 bottom-0 left-0 right-0 m-auto">
+                </div>
+                <div class="h-[50%] w-[0.25rem] bg-white rounded-full absolute top-0 bottom-0 left-0 right-0 m-auto">
+                </div>
+            </div>
         </div>
 
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
@@ -33,10 +37,11 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.factor }}</td>
                         <td class="text-[#08B3B9]">
-                            <span class="cursor-pointer" @click="isEdit = true; isOpen = true; title = item.title; factor = item.factor; questionsID = item.id">ویرایش</span>
+                            <span class="cursor-pointer"
+                                @click="isEdit = true; isOpen = true; title = item.title; factor = item.factor; questionsID = item.id">ویرایش</span>
                         </td>
                         <td class="text-[#EE0035]">
-                            <span @click="admin.deleteQuestions(item.id)" class="cursor-pointer">حذف</span>
+                            <span @click="isDelete = true; deleteId = item.id" class="cursor-pointer">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -76,12 +81,41 @@
                 </div>
             </div>
         </div>
+
+        
+
+
+
+        <div v-if="isDelete"
+            class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
+            @click="isDelete = false">
+            <div class="w-[60rem] bg-white rounded-[0.5rem] p-6" @click.stop="">
+                <img class="w-[6rem] h-[6rem] mb-6 mx-auto" src="/icons/orange-warning.svg" alt="fail">
+                <div class="overflow-auto max-h-[30vh] px-2">
+                    <p class="text-center text-lg text-crs-black-1">
+                        آیا از حذف سوال اطمینان دارید؟
+                    </p>
+                </div>
+                <div class="flex justify-center gap-4">
+                    <button @click="admin.deleteQuestions(deleteId);  isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
+                        بله
+                    </button>
+                    <button @click="isDelete = false"
+                        class="h-12 px-8 rounded-[0.5rem] bg-[#57C5C6] text-white mt-10 block">
+                        خیر
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 const search = ref("")
 const admin = useAdmin()
+const isDelete = ref(false)
+const deleteId = ref(null)
 admin.getQuestions()
 const { questions } = useAdmin()
 const isOpen = ref(false)
@@ -103,7 +137,7 @@ const addQuestion = () => {
         factor: factor.value
     }
 
-    if(isEdit.value) admin.changeQuestions(req, questionsID.value)
+    if (isEdit.value) admin.changeQuestions(req, questionsID.value)
     else admin.addQuestions(req)
     isOpen.value = false
     title.value = ""
