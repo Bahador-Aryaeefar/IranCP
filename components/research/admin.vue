@@ -118,7 +118,10 @@
                                     class="cursor-pointer text-[#08B3B9]">مشاهده</span>
                             </td>
                             <td>
-                                <span class="cursor-pointer text-[#08B3B9]">مشاهده</span>
+                                <span v-if="referIndex == index" @click="useAdmin().referee.value = null; referIndex = -1;"
+                                    class="cursor-pointer text-[#EE0035]">بستن</span>
+                                <span v-else @click="admin.getReferee(research.id, item.id); referIndex = index;"
+                                    class="cursor-pointer text-[#08B3B9]">مشاهده</span>
                             </td>
                             <td>
                                 <span @click="deleteId = item.id; isDelete = true"
@@ -133,88 +136,85 @@
             </div>
         </div>
 
-        <!-- <div class="overflow-auto">
-            <div class=" mx-auto w-fit">
-                <div class="text-black font-bold text-2xl text-center mt-20">داوری</div>
-                <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
-                <table class="w-full mt-4 border-spacing-[1rem] border-separate">
-                    <thead class="text-white font-bold text-lg">
-                        <tr>
-                            <th>شماره</th>
-                            <th>ملاک</th>
-                            <th>گزینه ها</th>
-                            <th>ضریب</th>
-                            <th>امتیاز</th>
-                        </tr>
-                    </thead>
+        <template v-if="refer">
+            <div class="overflow-auto">
+                <div class=" mx-auto w-fit">
+                    <div class="text-black font-bold text-2xl text-center mt-20">داوری</div>
+                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                    <table class="w-full mt-4 border-spacing-[1rem] border-separate">
+                        <thead class="text-white font-bold text-lg">
+                            <tr>
+                                <th>شماره</th>
+                                <th>ملاک</th>
+                                <th>گزینه ها</th>
+                                <th>ضریب</th>
+                                <th>امتیاز</th>
+                            </tr>
+                        </thead>
 
-                    <tbody class="text-black font-bold text-lg text-center">
-                        <tr v-for="item in questions">
-                            <td>{{ item.id }}</td>
-                            <td class="min-w-[10rem]">{{ item.title }}</td>
-                            <td class="border-[0.125rem]"
-                                :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">
-                                <UiScore :state="item.score" @pick="(picked) => item.score = picked"></UiScore>
-                            </td>
-                            <td>{{ item.factor }}</td>
-                            <td>{{ item.factor * item.score }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div v-if="questions"
-            class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-10 max-w-[50rem] mx-auto">
-            مجموع :
-            <span> {{ questions.map(x => x.score * x.factor).reduce((a, b) => a + b) }}</span>
-        </div>
-
-        <div class="max-w-[50rem] mx-auto mt-20">
-            <div class="text-2xl font-bold text-center">
-                توضیحات داوری
-            </div>
-
-            <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
-
-            <textarea id="description" v-model="description"
-                :class="(isConfirmed && !description) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                class="h-[15rem] min-h-20 w-full bg-white rounded-[3rem] focus:outline-none px-8 py-3 mt-4 placeholder:text-[#707070] text-[#000000] text-xl text-center border-[0.125rem] focus:border-[#57C5C6] shadow-md"
-                placeholder="توضیحات را وارد کنید"></textarea>
-        </div>
-
-        <button
-            class="block h-20 rounded-[1.25rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full max-w-[50rem] mx-auto mt-8"
-            @click="confirm()">ثبت</button>
-
-        <div class="max-w-[50rem] mx-auto mt-20">
-            <div class="text-2xl font-bold text-center">
-                مکالمه با مجری
-            </div>
-
-            <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
-
-            <textarea id="opinion" v-model="opinion"
-                :class="(isOpinion && !opinion) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                class="h-[10rem] min-h-20 w-full bg-white rounded-[3rem] focus:outline-none px-8 py-3 mt-4 placeholder:text-[#707070] text-[#000000] text-xl text-center border-[0.125rem] focus:border-[#57C5C6] shadow-md"
-                placeholder="پیام خود را وارد کنید"></textarea>
-
-            <button
-                class="block h-10 rounded-full bg-[#21C2C0] text-white border-[0.125rem] border-[#21C2C0] text-xl font-bold px-10 mx-auto mt-2"
-                @click="setOpinion()">ثبت پیام</button>
-        </div>
-
-        <ul class="max-w-[50rem] mx-auto mt-10 break-words space-y-4">
-            <li v-for="item in refer.opinions" class="rounded-[2rem] bg-white px-6 py-4 text-center">
-                <div class="text-2xl font-bold">
-                    {{ refer.referee_id == item.user_id ? 'داور' : 'مجری' }}
+                        <tbody class="text-black font-bold text-lg text-center">
+                            <tr v-for="item in questions">
+                                <td>{{ item.id }}</td>
+                                <td class="min-w-[10rem]">{{ item.title }}</td>
+                                <td class="border-[0.125rem]"
+                                    :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">
+                                    <UiScore :disabled="true" :state="item.score"></UiScore>
+                                </td>
+                                <td>{{ item.factor }}</td>
+                                <td>{{ item.factor * item.score }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="rounded-full h-[0.125rem] bg-[#21C2C0] mt-3"></div>
-                <div class="text-xl mt-3">
-                    {{ item.description }}
+            </div>
+
+            <div v-if="questions"
+                class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-10 max-w-[50rem] mx-auto">
+                مجموع :
+                <span> {{ questions.map(x => x.score * x.factor).reduce((a, b) => a + b) }}</span>
+            </div>
+
+            <div class="max-w-[50rem] mx-auto mt-20">
+                <div class="text-2xl font-bold text-center">
+                    توضیحات داوری
                 </div>
-            </li>
-        </ul> -->
+
+                <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
+
+                <div class="border-[#E1E2E4] w-full bg-white rounded-[3rem] px-8 py-3 mt-4 text-[#000000] text-xl text-center border-[0.125rem] shadow-md">
+                    {{ description ? description : "-" }}
+                </div>
+            </div>
+
+            <div class="max-w-[50rem] mx-auto mt-20">
+                <div class="text-2xl font-bold text-center">
+                    مکالمه با مجری
+                </div>
+
+                <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
+
+                <textarea id="opinion" v-model="opinion"
+                    :class="(isOpinion && !opinion) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                    class="h-[10rem] min-h-20 w-full bg-white rounded-[3rem] focus:outline-none px-8 py-3 mt-4 placeholder:text-[#707070] text-[#000000] text-xl text-center border-[0.125rem] focus:border-[#57C5C6] shadow-md"
+                    placeholder="پیام خود را وارد کنید"></textarea>
+
+                <button
+                    class="block h-10 rounded-full bg-[#21C2C0] text-white border-[0.125rem] border-[#21C2C0] text-xl font-bold px-10 mx-auto mt-2"
+                    @click="setOpinion()">ثبت پیام</button>
+            </div>
+
+            <ul class="max-w-[50rem] mx-auto mt-10 break-words space-y-4">
+                <li v-for="item in refer.opinions" class="rounded-[2rem] bg-white px-6 py-4 text-center">
+                    <div class="text-2xl font-bold">
+                        {{ refer.referee_id == item.user_id ? 'داور' : 'مجری' }}
+                    </div>
+                    <div class="rounded-full h-[0.125rem] bg-[#21C2C0] mt-3"></div>
+                    <div class="text-xl mt-3">
+                        {{ item.description }}
+                    </div>
+                </li>
+            </ul>
+        </template>
 
         <div v-if="isOpen"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[100] flex items-center justify-center"
@@ -225,7 +225,7 @@
                 </h1>
 
                 <div class="h-14 w-[30rem] relative mt-4">
-                    <input id="search" v-model="search"
+                    <input  v-model="search"
                         :class="(isConfirmed && !search) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
                         type="text" placeholder="جستجو">
@@ -348,7 +348,7 @@
 </template>
 
 <script setup>
-
+const referIndex = ref(-1)
 const isOpen = ref(false)
 const isDelete = ref(false)
 const deleteId = ref(null)
@@ -365,7 +365,7 @@ const admin = useAdmin()
 admin.getUsers()
 const { users } = useAdmin()
 const isConfirmed = ref(false)
-const refer = computed(() => admin.research.value ? admin.research.value : null)
+const refer = computed(() => admin.referee.value ? admin.referee.value : null)
 const research = computed(() => admin?.research?.value ? admin?.research?.value : null)
 admin.getResearch(id)
 const categories = [
@@ -459,7 +459,7 @@ const setOpinion = () => {
     const req = {
         description: opinion.value
     }
-    admin.setOpinion(req, refer.value.id, id)
+    admin.setOpinion(req, refer.value.id, id, refer.value.referee_id)
     opinion.value = ""
 }
 

@@ -6,6 +6,7 @@ export const useAdmin = () => {
     const researches = useState('adminResearches', () => null)
     const coords = useState('adminCoords', () => null)
     const research = useState('adminResearch', () => null)
+    const referee = useState('adminReferee', () => null)
     const questions = useState('adminQuetions', () => null)
 
 
@@ -181,6 +182,7 @@ export const useAdmin = () => {
 
     const getResearch = async (id) => {
         research.value = null
+        referee.value = null
         await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
@@ -585,6 +587,41 @@ export const useAdmin = () => {
         })
     }
 
+    const getReferee = async (id, refid) => {
+        referee.value = null
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}/referee/${refid}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('get referee')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'GET'
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("referee: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    referee.value = response._data
+                    getQuestions()
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("referee: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
     const deleteReferee = async (req, id) => {
         await useFetch(`https://api.37pajoohesh.ir/api/admin/research/delete/referee/${id}`, {
             onRequest({ request, options }) {
@@ -619,5 +656,41 @@ export const useAdmin = () => {
         })
     }
 
-    return { deleteUser, deleteResearch, deleteReferee, addReferee, questions, deleteQuestions, deleteCoords, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords }
+    const setOpinion = async (req, id, id2,id3) => {
+        questions.value = null
+        await useFetch(`https://api.37pajoohesh.ir/api/admin/research/${id}/opinion`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('set opinions')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'POST'
+                options.body = req
+                options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("opinions: " + error)
+                navigateTo("/auth")
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getReferee(id2,id3)
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("opinions: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
+    return { setOpinion,deleteUser, deleteResearch, deleteReferee, addReferee, questions, deleteQuestions, deleteCoords, getQuestions, addQuestions, changeQuestions, addCoords, coords, getCoords, users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch, changeCoords, referee, getReferee }
 }
