@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="mt-16 max-w-[50rem] mx-auto">
+        <div class="mt-16 mb-10 max-w-[50rem] mx-auto">
             <div class="text-black font-bold text-2xl text-center">درباره من</div>
             <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
 
@@ -82,12 +82,7 @@
             </div>
         </div>
 
-
-        <div class="mt-16 max-w-[50rem] mx-auto">
-            <div class="text-black font-bold text-2xl text-center">ویرایش</div>
-            <div class="my-6 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
-            <UserAuth class="mx-auto max-w-[50rem] w-full"></UserAuth>
-        </div>
+        <UserAuth class="mx-auto max-w-[50rem] w-full"></UserAuth>
 
         <div class="text-black font-bold text-2xl text-center mt-16">وضعیت</div>
         <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0] max-w-[50rem] mx-auto"></div>

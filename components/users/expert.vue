@@ -2,7 +2,7 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input  v-model="search"
+                <input v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
                     type="text" placeholder="جستجو نام">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
@@ -47,8 +47,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-[#08B3B9]">
-                            <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
+                        <td class="text-[#08B3B9] link">
+                            <NuxtLink class="block py-2" :to="`/users/${item.id}`">مشاهده</NuxtLink>
                         </td>
                     </tr>
                 </tbody>
@@ -89,4 +89,11 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}</style>
+}
+
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
+}
+</style>

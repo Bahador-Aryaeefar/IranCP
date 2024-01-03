@@ -30,7 +30,7 @@
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
                     <tr
-                        v-for="item in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search)))">
+                        v-for="item in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))).filter(x => useUser().user.value.id != x.id)">
                         <td>{{ item.id }}</td>
                         <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
                         <!-- <td>{{ item.personal_code }}</td>
@@ -75,11 +75,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-[#08B3B9]">
-                            <NuxtLink :to="`/users/${item.id}`">مشاهده</NuxtLink>
+                        <td class="text-[#08B3B9] link">
+                            <NuxtLink class="block py-2" :to="`/users/${item.id}`">مشاهده</NuxtLink>
                         </td>
-                        <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="isDelete = true; deleteId = item.id">حذف</span>
+                        <td class="text-[#EE0035] link">
+                            <span class="cursor-pointer block py-2" @click="isDelete = true; deleteId = item.id">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -174,5 +174,10 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
 }
 </style>

@@ -113,19 +113,19 @@
                             <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
                             <td>{{ item.personal_code }}</td>
                             <td>{{ item.mobile }}</td>
-                            <td>
+                            <td class="link">
                                 <span @click="refe = item; isRefe = true"
-                                    class="cursor-pointer text-[#08B3B9]">مشاهده</span>
+                                    class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
                             </td>
-                            <td>
+                            <td class="link">
                                 <span v-if="referIndex == index" @click="useAdmin().referee.value = null; referIndex = -1;"
-                                    class="cursor-pointer text-[#EE0035]">بستن</span>
+                                    class="cursor-pointer text-[#EE0035] block py-2">بستن</span>
                                 <span v-else @click="admin.getReferee(research.id, item.id); referIndex = index;"
-                                    class="cursor-pointer text-[#08B3B9]">مشاهده</span>
+                                    class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
                             </td>
-                            <td>
+                            <td class="link">
                                 <span @click="deleteId = item.id; isDelete = true"
-                                    class="cursor-pointer text-[#EE0035]">حذف</span>
+                                    class="cursor-pointer text-[#EE0035] block py-2">حذف</span>
                             </td>
                         </tr>
                     </tbody>
@@ -188,7 +188,7 @@
 
             <div class="max-w-[50rem] mx-auto mt-20">
                 <div class="text-2xl font-bold text-center">
-                    مکالمه با مجری
+                    مکالمه با داور
                 </div>
 
                 <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
@@ -486,6 +486,11 @@ td {
     padding-inline: 1.5rem;
     padding-block: 0.5rem;
     box-shadow: 0 0.25rem 0.375rem -0.063rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1);
+}
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
 }
 </style>
 

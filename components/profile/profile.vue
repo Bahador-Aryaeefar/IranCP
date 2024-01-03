@@ -83,12 +83,7 @@
             </div>
         </div>
 
-
-        <div class="mt-16 max-w-[50rem] mx-auto">
-            <div class="text-black font-bold text-2xl text-center">ویرایش</div>
-            <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
-            <ProfileAuth class="mt-6 max-w-[50rem] shadow-md"></ProfileAuth>
-        </div>
+        <ProfileAuth class="mt-10 max-w-[50rem] shadow-md"></ProfileAuth>
     </div>
 </template>
 

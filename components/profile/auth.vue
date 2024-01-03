@@ -1,6 +1,12 @@
 <template>
-    <div class="bg-white rounded-[1rem] py-6 px-10 m-auto">
-        <form class="flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
+    <div class="bg-white rounded-[1rem] px-10 m-auto overflow-hidden transition-all duration-[500ms]" :class="isOpen ? 'max-h-[50rem]' : 'max-h-16'">
+        <div @click="isOpen = !isOpen" class="cursor-pointer flex h-16 items-center justify-between text-black font-bold text-2xl -mx-10 pr-10 pl-6">
+            ویرایش
+            <img class="transition-all duration-[500ms] w-8 mt-1"
+                :class="(isOpen) ? 'rotate-180' : ''" src="/icons/ui/down.svg" alt="down">
+        </div>
+
+        <form class="flex gap-4 flex-wrap justify-center mt-4" @submit.prevent="" autocomplete="on">
             <div class="h-14 w-[18rem] relative">
                 <input id="email" v-model="email"
                     :class="(isConfirmed && !email) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
@@ -76,7 +82,7 @@
         </form>
 
         <div @click="edit"
-            class="flex items-center justify-center mx-auto h-14 mt-4 rounded-full bg-[#57C5C6] cursor-pointer gap-2 text-white text-xl">
+            class="flex items-center justify-center mx-auto h-14 mt-4 rounded-full bg-[#57C5C6] cursor-pointer gap-2 text-white text-xl mb-6">
             <!-- <img class="w-6" :src="`/icons/auth/register.svg`" alt="login"> -->
             ویرایش
         </div>
@@ -85,7 +91,7 @@
 
 <script setup>
 const { user } = useUser()
-
+const isOpen = ref(false)
 const router = useRoute()
 const email = ref(user.value.email)
 const name = ref(user.value.name)
@@ -159,5 +165,6 @@ const edit = () => {
 
     console.log(req)
     auth.update(req)
+    isOpen.value = false
 }
 </script>

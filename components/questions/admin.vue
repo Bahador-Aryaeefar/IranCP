@@ -36,12 +36,12 @@
                         <td>{{ item.date }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.factor }}</td>
-                        <td class="text-[#08B3B9]">
-                            <span class="cursor-pointer"
+                        <td class="text-[#08B3B9] link">
+                            <span class="cursor-pointer block py-2"
                                 @click="isEdit = true; isOpen = true; title = item.title; factor = item.factor; questionsID = item.id">ویرایش</span>
                         </td>
-                        <td class="text-[#EE0035]">
-                            <span @click="isDelete = true; deleteId = item.id" class="cursor-pointer">حذف</span>
+                        <td class="text-[#EE0035] link">
+                            <span @click="isDelete = true; deleteId = item.id" class="cursor-pointer block py-2">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -81,10 +81,6 @@
                 </div>
             </div>
         </div>
-
-        
-
-
 
         <div v-if="isDelete"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
@@ -164,5 +160,10 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
 }
 </style>

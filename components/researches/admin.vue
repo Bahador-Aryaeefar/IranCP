@@ -43,11 +43,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-[#08B3B9]">
-                            <NuxtLink :to="`/researches/${item.id}`">مشاهده</NuxtLink>
+                        <td class="text-[#08B3B9] link">
+                            <NuxtLink class="block py-2" :to="`/researches/${item.id}`">مشاهده</NuxtLink>
                         </td>
-                        <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="deleteId = item.id; isDelete = true">حذف</span>
+                        <td class="text-[#EE0035] link">
+                            <span class="cursor-pointer block py-2" @click="deleteId = item.id; isDelete = true">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -141,5 +141,10 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
 }
 </style>

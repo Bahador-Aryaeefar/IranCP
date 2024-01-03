@@ -139,8 +139,7 @@ export const useAuth = () => {
                 toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
-                    // cookie.value = response._data
-                    // navigateTo('/')
+                    useUser().getUser()
                 }
             },
             onResponseError({ request, response, options }) {

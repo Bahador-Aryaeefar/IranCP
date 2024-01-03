@@ -54,8 +54,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-[#EE0035]">
-                            <span class="cursor-pointer" @click="isDelete = true; deleteId = item.id">حذف</span>
+                        <td class="text-[#EE0035] link">
+                            <span class="cursor-pointer block py-2" @click="isDelete = true; deleteId = item.id">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -166,5 +166,10 @@ td {
     padding-inline: 1.5rem;
     padding-block: 0.5rem;
     box-shadow: 0 0.25rem 0.375rem -0.063rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1);
+}
+
+.link {
+    padding-inline: 0rem;
+    padding-block: 0rem;
 }
 </style>

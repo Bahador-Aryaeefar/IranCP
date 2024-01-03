@@ -1,7 +1,7 @@
 <template>
     <div @click.stop="isOpen = !isOpen" @focusout="blurInput"
         class="text-center text-xl flex justify-between items-center relative cursor-pointer group" tabindex="0">
-        <input @click.stop="isOpen = true" @blur="blurInput" v-model="selectInput" @input.prevent="inputValue"
+        <input @focus="selectInput = ''" @click.stop="isOpen = true" @blur="blurInput" v-model="selectInput" @input.prevent="inputValue"
             :placeholder="placeHolder" :disabled="!isInput"
             class="shadow-md text-center h-14 bg-white focus:outline-none w-full placeholder:text-[#707070] text-[#000000] border-[0.125rem] rounded-full px-6"
             :class="((isInput) ? '' : 'pointer-events-none') + ((isOpen) ? ' border-[#57C5C6]' : ((error) ? ' border-[#EE0035]' : ' border-[#E1E2E4] group-hover:border-[#57C5C6]')) + ' ' + inputBorder"
