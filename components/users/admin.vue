@@ -2,7 +2,7 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input  v-model="search"
+                <input v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
                     type="text" placeholder="جستجو نام">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
@@ -21,6 +21,8 @@
                         <th>کد ملی</th> -->
                         <th>استان</th>
                         <th>شهر</th>
+                        <th>استان داوری</th>
+                        <th>شهر داوری</th>
                         <th>وضعیت</th>
                         <th>نقش</th>
                         <th>پروفایل</th>
@@ -37,6 +39,23 @@
                         <td>{{ item.national_code }}</td> -->
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
+                        <td class="link">
+                            <UiSelect v-if="item.role_id == 3" class="w-[12rem]"
+                                :value="cities.searchProvince(item.referee_province_id)?.title" :isInput="true"
+                                :strict="true"
+                                @pick="((picked) => admin.changeUser({ referee_province_id: cities.provinces.value.filter(x => x.title == picked)[0]?.id }, item.id))"
+                                placeHolder="استان" :items="cities.provinces.value.map(x => x.title)"></UiSelect>
+                            <span v-else>-</span>
+                        </td>
+                        <td class="link">
+                            <UiSelect v-if="item.role_id == 3" class="w-[12rem]"
+                                :value="cities.searchCity(item.referee_city_id)?.title" :isInput="true" :strict="true"
+                                @pick="((picked) => admin.changeUser({ referee_city_id: cities.cities.value.filter(x => x.title == picked)[0]?.id }, item.id))"
+                                placeHolder="شهر"
+                                :items="cities.cities.value.filter(x => x.parent == item.referee_province_id).map(x => x.title)">
+                            </UiSelect>
+                            <span v-else>-</span>
+                        </td>
                         <td>
                             <div class="flex justify-between px-6 gap-6 ">
                                 <div class="flex gap-1 items-center cursor-pointer"
@@ -99,7 +118,7 @@
                     </p>
                 </div>
                 <div class="flex justify-center gap-4">
-                    <button @click="admin.deleteUser(deleteId);  isDelete = false"
+                    <button @click="admin.deleteUser(deleteId); isDelete = false"
                         class="h-12 px-8 rounded-[0.5rem] bg-[#EE0035] text-white mt-10 block">
                         بله
                     </button>
@@ -114,7 +133,6 @@
 </template>
 
 <script setup>
-
 const search = ref("")
 const admin = useAdmin()
 const isDelete = ref(false)
@@ -179,5 +197,6 @@ td {
 .link {
     padding-inline: 0rem;
     padding-block: 0rem;
-}
-</style>
+    overflow: visible;
+
+}</style>
