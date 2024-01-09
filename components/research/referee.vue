@@ -56,6 +56,11 @@
                     همکاران
                     <span>{{ research.partners }}</span>
                 </li>
+                <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                <li class="flex justify-between">
+                    مرحله
+                    <span>{{ levels[research.level] }}</span>
+                </li>
             </ul>
 
             <div class="bg-white rounded-[2rem] py-4 px-8 mt-4 shadow-md">
@@ -87,59 +92,62 @@
             </a>
         </div>
 
-        <div class="overflow-auto">
-            <div class=" mx-auto w-fit">
-                <div class="text-black font-bold text-2xl text-center mt-20">داوری</div>
-                <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
-                <table class="w-full mt-4 border-spacing-[1rem] border-separate">
-                    <thead class="text-white font-bold text-lg">
-                        <tr>
-                            <th>شماره</th>
-                            <th>ملاک</th>
-                            <th>گزینه ها</th>
-                            <th>ضریب</th>
-                            <th>امتیاز</th>
-                        </tr>
-                    </thead>
 
-                    <tbody class="text-black font-bold text-lg text-center">
-                        <tr v-for="item in questions">
-                            <td>{{ item.id }}</td>
-                            <td class="min-w-[10rem]">{{ item.title }}</td>
-                            <td class="border-[0.125rem]"
-                                :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">
-                                <UiScore :state="item.score" @pick="(picked) => item.score = picked"></UiScore>
-                            </td>
-                            <td>{{ item.factor }}</td>
-                            <td>{{ item.factor * item.score }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <template v-if="research.level > 0">
+            <div class="overflow-auto">
+                <div class=" mx-auto w-fit">
+                    <div class="text-black font-bold text-2xl text-center mt-20">داوری</div>
+                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                    <table class="w-full mt-4 border-spacing-[1rem] border-separate">
+                        <thead class="text-white font-bold text-lg">
+                            <tr>
+                                <th>شماره</th>
+                                <th>ملاک</th>
+                                <th>گزینه ها</th>
+                                <th>ضریب</th>
+                                <th>امتیاز</th>
+                            </tr>
+                        </thead>
 
-        <div v-if="questions"
-            class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-10 max-w-[50rem] mx-auto">
-            مجموع :
-            <span> {{ questions.map(x => x.score * x.factor).reduce((a, b) => a + b) }}</span>
-        </div>
-
-        <div class="max-w-[50rem] mx-auto mt-20">
-            <div class="text-2xl font-bold text-center">
-                توضیحات داوری
+                        <tbody class="text-black font-bold text-lg text-center">
+                            <tr v-for="item in questions">
+                                <td>{{ item.id }}</td>
+                                <td class="min-w-[10rem]">{{ item.title }}</td>
+                                <td class="border-[0.125rem]"
+                                    :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">
+                                    <UiScore :state="item.score" @pick="(picked) => item.score = picked"></UiScore>
+                                </td>
+                                <td>{{ item.factor }}</td>
+                                <td>{{ item.factor * item.score }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
+            <div v-if="questions"
+                class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-10 max-w-[50rem] mx-auto">
+                مجموع :
+                <span> {{ questions.map(x => x.score * x.factor).reduce((a, b) => a + b) }}</span>
+            </div>
 
-            <textarea id="description" v-model="description"
-                :class="(isConfirmed && !description) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                class="h-[15rem] min-h-20 w-full bg-white rounded-[3rem] focus:outline-none px-8 py-3 mt-4 placeholder:text-[#707070] text-[#000000] text-xl text-center border-[0.125rem] focus:border-[#57C5C6] shadow-md"
-                placeholder="توضیحات را وارد کنید"></textarea>
-        </div>
+            <div class="max-w-[50rem] mx-auto mt-20">
+                <div class="text-2xl font-bold text-center">
+                    توضیحات داوری
+                </div>
 
-        <button
-            class="block h-20 rounded-[1.25rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full max-w-[50rem] mx-auto mt-8"
-            @click="confirm()">ثبت</button>
+                <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
+
+                <textarea id="description" v-model="description"
+                    :class="(isConfirmed && !description) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
+                    class="h-[15rem] min-h-20 w-full bg-white rounded-[3rem] focus:outline-none px-8 py-3 mt-4 placeholder:text-[#707070] text-[#000000] text-xl text-center border-[0.125rem] focus:border-[#57C5C6] shadow-md"
+                    placeholder="توضیحات را وارد کنید"></textarea>
+            </div>
+
+            <button
+                class="block h-20 rounded-[1.25rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full max-w-[50rem] mx-auto mt-8"
+                @click="confirm()">ثبت</button>
+        </template>
 
         <div class="max-w-[50rem] mx-auto mt-20">
             <div class="text-2xl font-bold text-center">
@@ -173,7 +181,11 @@
 </template>
 
 <script setup>
-
+const levels = [
+    'کارشناسی شهرستان',
+    'داوری شهرستان',
+    'داوری استان'
+]
 const { id } = useRoute().params
 const cities = useCities()
 if (cities.cities.value == null) {
@@ -232,6 +244,7 @@ watch(() => referee.questions.value, (newV, oldV) => {
     description.value = refer?.value?.description
 })
 
+const limit = 150
 const confirm = () => {
     if (!questions.value) return
     isConfirmed.value = true
@@ -254,6 +267,11 @@ const confirm = () => {
 
     console.log(req)
     referee.setScore(req, refer.value.id, id)
+    if (questions.value.map(x => x.score * x.factor).reduce((a, b) => a + b) > limit) {
+        if (research.value.level < 2) referee.levelUp({ level: 2 }, id)
+    } else {
+        referee.levelUp({ level: 1 }, id)
+    }
     isConfirmed.value = false
 }
 

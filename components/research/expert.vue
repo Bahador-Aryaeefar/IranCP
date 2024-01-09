@@ -55,6 +55,11 @@
                 همکاران
                 <span>{{ research.partners }}</span>
             </li>
+            <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+            <li class="flex justify-between">
+                مرحله
+                <span>{{ levels[research.level] }}</span>
+            </li>
         </ul>
 
         <div class="bg-white rounded-[2rem] py-4 px-8 mt-4 shadow-md">
@@ -89,12 +94,12 @@
         <div class="mt-6 h-[0.125rem] rounded-full bg-[#21C2C0] max-w-[50rem] mx-auto"></div>
         <div class="flex bg-white rounded-full gap-6 w-fit mx-auto py-4 px-10 mt-6 text-2xl">
             <div class="flex gap-2 items-center cursor-pointer"
-                @click="expert.changeResearch({ expert_confirm: 0 }, research.id)">
+                @click="expert.changeResearch({ expert_confirm: 0 }, research.id); expert.levelUp({ level: 0 }, research.id)">
                 <UiRadioButton :isSelected="!research.expert_confirm"></UiRadioButton>
                 عدم تایید
             </div>
             <div class="flex gap-2 items-center cursor-pointer"
-                @click="expert.changeResearch({ expert_confirm: 1 }, research.id)">
+                @click="expert.changeResearch({ expert_confirm: 1 }, research.id); ((research.level == 0) ? expert.levelUp({ level: 1 }, research.id) : '')">
                 <UiRadioButton :isSelected="research.expert_confirm"></UiRadioButton>
                 تایید
             </div>
@@ -104,7 +109,11 @@
 </template>
 
 <script setup>
-
+const levels = [
+    'کارشناسی شهرستان',
+    'داوری شهرستان',
+    'داوری استان'
+]
 const { id } = useRoute().params
 const cities = useCities()
 if (cities.cities.value == null) {

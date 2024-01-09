@@ -56,6 +56,11 @@
                     همکاران
                     <span>{{ research.partners }}</span>
                 </li>
+                <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                <li class="flex justify-between">
+                    مرحله
+                    <span>{{ levels[research.level] }}</span>
+                </li>
             </ul>
 
             <div class="bg-white rounded-[2rem] py-4 px-8 mt-4 shadow-md">
@@ -130,7 +135,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                <div v-if="research.level > 1" class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
                     @click="isOpen = true">+
                 </div>
             </div>
@@ -348,6 +353,11 @@
 </template>
 
 <script setup>
+const levels = [
+    'کارشناسی شهرستان',
+    'داوری شهرستان',
+    'داوری استان'
+]
 const referIndex = ref(-1)
 const isOpen = ref(false)
 const isDelete = ref(false)

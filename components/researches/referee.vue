@@ -18,6 +18,7 @@
                         <th>عنوان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
+                        <th>مرحله</th>
                         <th>جزئیات</th>
                     </tr>
                 </thead>
@@ -28,6 +29,7 @@
                         <td>{{ item.name }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td class="max-w-[20rem] truncate">{{ item.description }}</td>
+                        <td>{{ levels[item.level] }}</td>
                         <td class="text-[#08B3B9] link">
                             <NuxtLink class="block py-2" :to="`/researches/${item.id}`">مشاهده</NuxtLink>
                         </td>
@@ -39,6 +41,11 @@
 </template>
 
 <script setup>
+const levels = [
+    'کارشناسی شهرستان',
+    'داوری شهرستان',
+    'داوری استان'
+]
 const search = ref("")
 const referee = useReferee()
 referee.getResearches()

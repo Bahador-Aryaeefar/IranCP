@@ -183,6 +183,41 @@ export const useExpert = () => {
         })
     }
 
+    const levelUp =  async (req,id) => {
+        await useFetch(`https://api.37pajoohesh.ir/api/levelup/${id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('levelUp')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'PATCH'
+                options.body = req
+                // options.headers.Authorization = 'Bearer ' + cookie.value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("levelUp: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    getResearches() 
+                    getResearch(id)
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("levelUp: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+
     const changeResearch = async (req, id) => {
         await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
             onRequest({ request, options }) {
@@ -220,5 +255,5 @@ export const useExpert = () => {
     }
 
 
-    return { users, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch }
+    return { users, levelUp, getUsers, changeUser, user, getUser, research, researches, getResearches, changeResearch, getResearch }
 }

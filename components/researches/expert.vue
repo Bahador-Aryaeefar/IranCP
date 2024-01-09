@@ -15,8 +15,10 @@
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
+                        <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
+                        <th>مرحله</th>
                         <th>وضعیت</th>
                         <th>جزئیات</th>
                     </tr>
@@ -26,17 +28,19 @@
                     <tr v-for="item in researches?.filter(x => x.name.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
+                        <td>{{ levels[item.level] }}</td>
                         <td>
                             <div class="flex justify-between px-6 gap-6 ">
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="expert.changeResearch({ expert_confirm: 0 }, item.id)">
+                                    @click="expert.changeResearch({ expert_confirm: 0 }, item.id); expert.levelUp({level: 0}, item.id);">
                                     <UiRadioButton :isSelected="!item.expert_confirm"></UiRadioButton>
                                     عدم تایید
                                 </div>
                                 <div class="flex gap-1 items-center cursor-pointer"
-                                    @click="expert.changeResearch({ expert_confirm: 1 }, item.id)">
+                                    @click="expert.changeResearch({ expert_confirm: 1 }, item.id); ((item.level == 0) ? expert.levelUp({level: 1}, item.id) : '');">
                                     <UiRadioButton :isSelected="item.expert_confirm"></UiRadioButton>
                                     تایید
                                 </div>
@@ -53,6 +57,11 @@
 </template>
 
 <script setup>
+const levels = [
+    'کارشناسی شهرستان',
+    'داوری شهرستان',
+    'داوری استان'
+]
 const search = ref("")
 const expert = useExpert()
 expert.getResearches()

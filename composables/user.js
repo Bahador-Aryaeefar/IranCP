@@ -94,7 +94,6 @@ export const useUser = () => {
                 // Handle the request errors
                 toast.clearLoad()
                 toast.addError("stats: " + error)
-                navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
