@@ -31,7 +31,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in questions?.filter(x => x.title.includes(search))">
+                    <tr v-for="item in questions?.filter(x => x.title?.includes(search))">
                         <td>{{ item.id }}</td>
                         <td>{{ item.date }}</td>
                         <td>{{ item.title }}</td>

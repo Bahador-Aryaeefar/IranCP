@@ -9,7 +9,7 @@ export const useUser = () => {
 
 
     const getUser = async (req) => {
-        await useFetch('https://api.37pajoohesh.ir/api/getUser', {
+        await useFetch('https://37pajoohesh.ir/api/getUser', {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('getUser')
@@ -47,7 +47,7 @@ export const useUser = () => {
 
     const getTeacher = async (id) => {
         teacher.value = null
-        await useFetch(`https://api.37pajoohesh.ir/api/profile/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/profile/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get teacher')
@@ -79,7 +79,7 @@ export const useUser = () => {
     }
 
     const getStats =  async (req) => {
-        await useFetch('https://api.37pajoohesh.ir/api/statistics', {
+        await useFetch('https://37pajoohesh.ir/api/statistics', {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get stats')

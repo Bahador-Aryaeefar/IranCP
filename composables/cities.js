@@ -4,7 +4,7 @@ export const useCities = () => {
     const toast = useToast()
 
     const getCities = async (req) => {
-        await useFetch('https://api.37pajoohesh.ir/api/province_cities', {
+        await useFetch('https://37pajoohesh.ir/api/province_cities', {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get cities')

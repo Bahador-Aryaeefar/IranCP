@@ -28,7 +28,7 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in coords?.filter(x => x.date.includes(search))">
+                    <tr v-for="item in coords?.filter(x => x.date?.includes(search))">
                         <td>{{ item.date }}</td>
                         <td class="max-w-full">
                             <div class="flex gap-6 justify-between px-6">

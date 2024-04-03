@@ -9,7 +9,7 @@ export const useExpert = () => {
 
     const getUsers = async (req) => {
         users.value = null
-        await useFetch('https://api.37pajoohesh.ir/api/expert/users', {
+        await useFetch('https://37pajoohesh.ir/api/expert/users', {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get users')
@@ -44,7 +44,7 @@ export const useExpert = () => {
 
     const getUser = async (id) => {
         user.value = null
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/expert/user/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get user')
@@ -78,7 +78,7 @@ export const useExpert = () => {
     }
 
     const changeUser = async (req, id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/user/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/expert/user/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change users')
@@ -115,7 +115,7 @@ export const useExpert = () => {
 
     const getResearches = async (req) => {
         researches.value = null
-        await useFetch('https://api.37pajoohesh.ir/api/expert/research', {
+        await useFetch('https://37pajoohesh.ir/api/expert/research', {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get researches')
@@ -150,7 +150,7 @@ export const useExpert = () => {
 
     const getResearch = async (id) => {
         research.value = null
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/expert/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get research')
@@ -184,7 +184,7 @@ export const useExpert = () => {
     }
 
     const levelUp =  async (req,id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/levelup/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/levelup/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('levelUp')
@@ -219,7 +219,7 @@ export const useExpert = () => {
     }
 
     const changeResearch = async (req, id) => {
-        await useFetch(`https://api.37pajoohesh.ir/api/expert/research/${id}`, {
+        await useFetch(`https://37pajoohesh.ir/api/expert/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change research')
