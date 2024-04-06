@@ -11,7 +11,6 @@ export const useUser = () => {
     const getUser = async (req) => {
         await useFetch('https://37pajoohesh.ir/api/getUser', {
             onRequest({ request, options }) {
-                toast.addLoad()
                 console.log('getUser')
                 options.headers = {
                     "Accept": "application/json"
@@ -22,13 +21,10 @@ export const useUser = () => {
             },
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
-                toast.clearLoad()
-                toast.addError("User: " + error)
                 navigateTo("/auth")
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
-                toast.clearLoad()
                 console.log(response)
                 if (response.status == 200 || response.status == 201) {
                     user.value = response._data.data
@@ -37,7 +33,6 @@ export const useUser = () => {
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.addError("User: " + response._data.data)
                 const auth = useAuth()
                 auth.logout("")
             },
