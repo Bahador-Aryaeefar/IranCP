@@ -9,7 +9,8 @@
                 </div>
             </div>
 
-            <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8"></div>
+            <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8">
+            </div>
             <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]"
                 :src="`https://37pajoohesh.ir/images/research/${research.file_image}`" alt="book">
             <h1 class="text-center text-[2rem] text-bold mt-2">
@@ -123,7 +124,8 @@
                                     class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
                             </td>
                             <td class="link">
-                                <span v-if="referIndex == index" @click="useAdmin().referee.value = null; referIndex = -1;"
+                                <span v-if="referIndex == index"
+                                    @click="useAdmin().referee.value = null; referIndex = -1;"
                                     class="cursor-pointer text-[#EE0035] block py-2">بستن</span>
                                 <span v-else @click="admin.getReferee(research.id, item.id); referIndex = index;"
                                     class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
@@ -135,7 +137,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-if="research.level > 1" class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                <div v-if="research.level > 1"
+                    class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
                     @click="isOpen = true">+
                 </div>
             </div>
@@ -158,8 +161,8 @@
                         </thead>
 
                         <tbody class="text-black font-bold text-lg text-center">
-                            <tr v-for="item in questions">
-                                <td>{{ item.id }}</td>
+                            <tr v-for="item, index in questions">
+                                <td>{{ index + 1 }}</td>
                                 <td class="min-w-[10rem]">{{ item.title }}</td>
                                 <td class="border-[0.125rem]"
                                     :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">
@@ -176,7 +179,8 @@
             <div v-if="questions"
                 class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-10 max-w-[50rem] mx-auto">
                 مجموع :
-                <span> {{ questions && questions[0] ? questions?.map(x => x.score * x.factor)?.reduce((a, b) => a + b) : 0 }}</span>
+                <span> {{ questions && questions[0] ? questions?.map(x => x.score * x.factor)?.reduce((a, b) => a + b) :
+                    0 }}</span>
             </div>
 
             <div class="max-w-[50rem] mx-auto mt-20">
@@ -186,7 +190,8 @@
 
                 <div class="h-[0.125rem] rounded-full bg-[#21C2C0] mt-4"></div>
 
-                <div class="border-[#E1E2E4] w-full bg-white rounded-[3rem] px-8 py-3 mt-4 text-[#000000] text-xl text-center border-[0.125rem] shadow-md">
+                <div
+                    class="border-[#E1E2E4] w-full bg-white rounded-[3rem] px-8 py-3 mt-4 text-[#000000] text-xl text-center border-[0.125rem] shadow-md">
                     {{ description ? description : "-" }}
                 </div>
             </div>
@@ -230,7 +235,7 @@
                 </h1>
 
                 <div class="h-14 w-[30rem] relative mt-4">
-                    <input  v-model="search"
+                    <input v-model="search"
                         :class="(isConfirmed && !search) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
                         class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
                         type="text" placeholder="جستجو">
@@ -292,16 +297,20 @@
                         refe.current_position }}</div>
 
                     <div class="flex gap-2 mt-2">
-                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                        <div
+                            class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
                             {{ refe.degree_education }}</div>
-                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                        <div
+                            class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
                             {{ refe.discipline }}</div>
                     </div>
 
                     <div class="flex gap-2 mt-2">
-                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                        <div
+                            class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
                             {{ cities.searchProvince(refe.province_id)?.title }}</div>
-                        <div class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
+                        <div
+                            class="rounded-full h-12 flex items-center justify-center bg-[#F5F5F5] text-xl grow w-[1rem]">
                             {{ cities.searchCity(refe.city_id)?.title }}</div>
                     </div>
 

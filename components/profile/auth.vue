@@ -1,9 +1,11 @@
 <template>
-    <div class="bg-white rounded-[1rem] px-10 m-auto overflow-hidden transition-all duration-[500ms]" :class="isOpen ? 'max-h-[50rem]' : 'max-h-16'">
-        <div @click="isOpen = !isOpen" class="cursor-pointer flex h-16 items-center justify-between text-black font-bold text-2xl -mx-10 pr-10 pl-6">
+    <div class="bg-white rounded-[1rem] px-10 m-auto overflow-hidden transition-all duration-[500ms]"
+        :class="isOpen ? 'max-h-[50rem]' : 'max-h-16'">
+        <div @click="isOpen = !isOpen"
+            class="cursor-pointer flex h-16 items-center justify-between text-black font-bold text-2xl -mx-10 pr-10 pl-6">
             ویرایش
-            <img class="transition-all duration-[500ms] w-8 mt-1"
-                :class="(isOpen) ? 'rotate-180' : ''" src="/icons/ui/down.svg" alt="down">
+            <img class="transition-all duration-[500ms] w-8 mt-1" :class="(isOpen) ? 'rotate-180' : ''"
+                src="/icons/ui/down.svg" alt="down">
         </div>
 
         <form class="flex gap-4 flex-wrap justify-center mt-4" @submit.prevent="" autocomplete="on">
@@ -31,12 +33,14 @@
             <UiSelect class="w-[18rem]" :value="gender" :error="isConfirmed && !gender"
                 @pick="((picked) => gender = picked)" placeHolder="جنسیت" :items="['مرد', 'زن']"></UiSelect>
 
-            <div class="h-14 w-[18rem] relative">
-                <input id="degree" v-model="degree"
-                    :class="(isConfirmed && !degree) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                    class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                    type="text" placeholder="مدرک تحصیلی">
-            </div>
+            <UiSelect v-if="!isLogin" class="w-[18rem]" :value="degree" :error="isConfirmed && !degree" :isInput="true"
+                :strict="true" @pick="((picked) => degree = picked)" placeHolder="مدرک تحصیلی" :items="[
+                    'پایان دوره متوسطه دوم',
+                    'کاردانی',
+                    'کارشناسی',
+                    'کارشناسی ارشد',
+                    'دکتری'
+                ]"></UiSelect>
 
             <div class="h-14 w-[18rem] relative">
                 <input id="discipline" v-model="discipline"
@@ -52,12 +56,16 @@
                     type="text" placeholder="سابقه کار">
             </div>
 
-            <div class="h-14 w-[18rem] relative">
-                <input id="position" v-model="position"
-                    :class="(isConfirmed && !position) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                    class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                    type="text" placeholder="سمت فعلی">
-            </div>
+            <UiSelect v-if="!isLogin" class="w-[18rem]" :value="position" :error="isConfirmed && !position"
+                :isInput="true" :strict="true" @pick="((picked) => position = picked)" placeHolder="سمت فعلی" :items="[
+                    'آموزگار',
+                    'دبیر',
+                    'هنر آموز',
+                    'معاون',
+                    'مدیر',
+                    'اداری',
+                    'دانشجو معلم'
+                ]"></UiSelect>
 
             <div class="h-14 w-[18rem] relative">
                 <input id="positionHistory" v-model="positionHistory"

@@ -2,7 +2,7 @@
     <div class="mx-auto px-8">
         <div class="flex gap-4 flex-wrap">
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
-                <input  v-model="search"
+                <input v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
                     type="text" placeholder="جستجو سال">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
@@ -55,7 +55,8 @@
                             </div>
                         </td>
                         <td class="text-[#EE0035] link">
-                            <span class="cursor-pointer block py-2" @click="isDelete = true; deleteId = item.id">حذف</span>
+                            <span class="cursor-pointer block py-2"
+                                @click="isDelete = true; deleteId = item.id">حذف</span>
                         </td>
                     </tr>
                 </tbody>
@@ -71,13 +72,6 @@
                 </h1>
 
                 <form class="mt-4 flex gap-4 flex-wrap justify-center" @submit.prevent="" autocomplete="on">
-                    <div class="h-14 w-[18rem] relative">
-                        <input id="status" v-model="status"
-                            :class="(isConfirmed && !status) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                            class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                            type="text" placeholder="مرحله">
-                    </div>
-
                     <div class="h-14 w-[18rem] relative">
                         <input id="date" v-model="date"
                             :class="(isConfirmed && !date) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
@@ -136,12 +130,11 @@ const isConfirmed = ref(false)
 const addCoord = () => {
     isConfirmed.value = true
     let isValid = true
-    if (!status.value) isValid = false
     if (!date.value) isValid = false
     if (!isValid) return
 
     const req = {
-        status: status.value,
+        status: '0',
         date: date.value
     }
 

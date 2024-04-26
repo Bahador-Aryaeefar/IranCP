@@ -97,23 +97,25 @@ export const useAuth = () => {
             onRequestError({ request, options, error, response }) {
                 // Handle the request errors
                 toast.clearLoad()
-                toast.addError("RegisterTeacher: " + error)
+                toast.addError("Register: " + error)
             },
             onResponse({ request, response, options }) {
                 // Process the response data    return response._data
                 toast.clearLoad()
-                console.log(response)
+                console.log(response._data.message)
                 if (response.status == 200 || response.status == 201) {
-                    // cookie.value = response._data
-                    // navigateTo('/')
+                    toast.addSuccess("ثبت نام با موفقیت انجام شد")
                 }
             },
             onResponseError({ request, response, options }) {
                 // Handle the response errors 
-                toast.addError("RegisterTeacher: " + response._data.data)
+                
+                if (response.status == 422) toast.addError("Register: " + "کد پرسنلی یا کد ملی تکراری است")
+                else toast.addError("Register: " + response._data.data)
             },
             initialCache: false,
-            server: false
+            server: false,
+            key: new Date().getTime().toString()
         })
     }
 
@@ -152,6 +154,7 @@ export const useAuth = () => {
     }
 
     const logout = () => {
+        const cookie = useCookie('token')
         console.log('logout')
         cookie.value = null
         user.user.value = null

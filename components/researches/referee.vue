@@ -24,8 +24,8 @@
                 </thead>
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
-                    <tr v-for="item in researches?.map(x => x.research).filter(x => x)">
-                        <td>{{ item.id }}</td>
+                    <tr v-for="item,index in researches?.map(x => x.research).filter(x => x)">
+                        <td>{{ index+1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td class="max-w-[20rem] truncate">{{ item.description }}</td>

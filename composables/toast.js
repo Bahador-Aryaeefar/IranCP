@@ -5,7 +5,7 @@ export const useToast = () => {
     const errors = useState('errors', () => [])
     const warnings = useState('warnings', () => [])
     const load = useState('load', () => 0)
-    const success = useState('showSuccess', () => [])
+    const success = useState('successes', () => [])
 
     const addError = (error) => {
         errors.value.push(error)
@@ -34,7 +34,7 @@ export const useToast = () => {
 
     const clearSuccess = () => {
         success.value = []
-        success.value = false
+        showSuccess.value = false
     }
 
     const addLoad = () => {

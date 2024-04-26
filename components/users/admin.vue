@@ -4,10 +4,10 @@
             <div class="h-14 bg-white rounded-[1.5rem] flex items-center shadow-sm shrink-0 grow">
                 <input v-model="search"
                     class="grow h-full text-black focus:outline-none placeholder:text-[#707070] bg-transparent px-6 text-lg"
-                    type="text" placeholder="جستجو نام">
+                    type="text" placeholder="جستجو نام و کد پرسنلی">
                 <img class="w-6 h-6 mx-5" src="/icons/personal/search.svg" alt="search">
             </div>
-            <UiSelect class="w-[18rem] split:grow" :value="role" @pick="((picked) => role = picked)" placeHolder="سمت"
+            <UiSelect class="w-[18rem] split:grow" :value="role" @pick="((picked) => role = picked)" placeHolder="نقش"
                 :items="roles"></UiSelect>
         </div>
 
@@ -17,8 +17,7 @@
                     <tr>
                         <th>شماره</th>
                         <th>نام</th>
-                        <!-- <th>کد پرسنلی</th>
-                        <th>کد ملی</th> -->
+                        <th>کد پرسنلی</th>
                         <th>استان</th>
                         <th>شهر</th>
                         <th>استان داوری</th>
@@ -32,11 +31,10 @@
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
                     <tr
-                        v-for="item in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))).filter(x => useUser().user.value.id != x.id)">
-                        <td>{{ item.id }}</td>
+                        v-for="item,index in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search) || x.personal_code.includes(search))).filter(x => useUser().user.value.id != x.id)">
+                        <td>{{ index+1 }}</td>
                         <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
-                        <!-- <td>{{ item.personal_code }}</td>
-                        <td>{{ item.national_code }}</td> -->
+                        <td>{{ item.personal_code }}</td>
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td class="link">

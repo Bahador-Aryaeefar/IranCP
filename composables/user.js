@@ -9,6 +9,7 @@ export const useUser = () => {
 
 
     const getUser = async (req) => {
+        user.value = null
         await useFetch('https://37pajoohesh.ir/api/getUser', {
             onRequest({ request, options }) {
                 console.log('getUser')

@@ -110,8 +110,8 @@
                         </thead>
 
                         <tbody class="text-black font-bold text-lg text-center">
-                            <tr v-for="item in questions">
-                                <td>{{ item.id }}</td>
+                            <tr v-for="item,index in questions">
+                                <td>{{ index+1 }}</td>
                                 <td class="min-w-[10rem]">{{ item.title }}</td>
                                 <td class="border-[0.125rem]"
                                     :class="isConfirmed && item.score == null ? 'border-[#EE0035]' : 'border-white'">

@@ -71,12 +71,15 @@
                     :items="(province ? cities.cities.value?.filter(x => x.parent == provinceID.id)?.map(x => x.title) : [])"
                     :isInput="true" :strict="true"></UiSelect>
 
-                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
-                    <input id="degree" v-model="degree"
-                        :class="(isConfirmed && !degree) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                        type="text" placeholder="مدرک تحصیلی">
-                </div>
+                    
+                <UiSelect v-if="!isLogin" class="w-[18rem]" :value="degree" :error="isConfirmed && !degree" :isInput="true" :strict="true"
+                    @pick="((picked) => degree = picked)" placeHolder="مدرک تحصیلی" :items="[
+                        'پایان دوره متوسطه دوم',
+                        'کاردانی',
+                        'کارشناسی',
+                        'کارشناسی ارشد',
+                        'دکتری'
+                    ]"></UiSelect>
 
                 <div v-if="!isLogin" class="h-14 w-[18rem] relative">
                     <input id="discipline" v-model="discipline"
@@ -92,12 +95,16 @@
                         type="text" placeholder="سابقه کار">
                 </div>
 
-                <div v-if="!isLogin" class="h-14 w-[18rem] relative">
-                    <input id="position" v-model="position"
-                        :class="(isConfirmed && !position) ? 'border-[#EE0035]' : 'border-[#E1E2E4] hover:border-[#57C5C6]'"
-                        class="h-full px-6 w-full text-[#1C0E07] text-lg focus:outline-none bg-transparent placeholder:text-[#A69F9B] border-[0.125rem] focus:border-[#57C5C6] rounded-full"
-                        type="text" placeholder="سمت فعلی">
-                </div>
+                <UiSelect v-if="!isLogin" class="w-[18rem]" :value="position" :error="isConfirmed && !position" :isInput="true" :strict="true"
+                    @pick="((picked) => position = picked)" placeHolder="سمت فعلی" :items="[
+                        'آموزگار',
+                        'دبیر',
+                        'هنر آموز',
+                        'معاون',
+                        'مدیر',
+                        'اداری',
+                        'دانشجو معلم'
+                    ]"></UiSelect>
 
                 <div v-if="!isLogin" class="h-14 w-[18rem] relative">
                     <input id="positionHistory" v-model="positionHistory"
