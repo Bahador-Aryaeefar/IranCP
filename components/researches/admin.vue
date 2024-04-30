@@ -11,7 +11,7 @@
 
         <div class="overflow-auto w-full h-[calc(100vh-12rem)]">
             <table class="w-full mt-4 border-spacing-[1rem] border-separate">
-                <thead @click="me" class="text-white font-bold text-lg whitespace-nowrap">
+                <thead class="text-white font-bold text-lg whitespace-nowrap">
                     <tr>
                         <th>شماره</th>
                         <th>عنوان</th>
@@ -19,7 +19,7 @@
                         <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
-                        <th>مرحله</th>
+                        <!-- <th>مرحله</th> -->
                         <th>وضعیت</th>
                         <th>جزئیات</th>
                         <th>حذف</th>
@@ -34,7 +34,7 @@
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
-                        <td>{{ levels[item.level] }}</td>
+                        <!-- <td>{{ levels[item.level] }}</td> -->
                         <td>
                             <div class="flex justify-between px-6 gap-6 ">
                                 <div class="flex gap-1 items-center cursor-pointer"
@@ -123,10 +123,6 @@ const types = [
     'انفرادی',
     'گروهی'
 ]
-
-const me = () => {
-    console.log(researches.value)
-}
 
 const cities = useCities()
 if (cities.cities.value == null) {

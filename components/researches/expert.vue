@@ -19,7 +19,7 @@
                         <th>استان</th>
                         <th>شهر</th>
                         <th>موضوع</th>
-                        <th>مرحله</th>
+                        <!-- <th>مرحله</th> -->
                         <th>وضعیت</th>
                         <th>جزئیات</th>
                     </tr>
@@ -33,7 +33,7 @@
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>
-                        <td>{{ levels[item.level] }}</td>
+                        <!-- <td>{{ levels[item.level] }}</td> -->
                         <td>
                             <div class="flex justify-between px-6 gap-6 ">
                                 <div class="flex gap-1 items-center cursor-pointer"

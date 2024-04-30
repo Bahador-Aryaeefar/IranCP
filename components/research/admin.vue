@@ -57,11 +57,11 @@
                     همکاران
                     <span>{{ research.partners }}</span>
                 </li>
-                <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+                <!-- <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
                 <li class="flex justify-between">
                     مرحله
                     <span>{{ levels[research.level] }}</span>
-                </li>
+                </li> -->
             </ul>
 
             <div class="bg-white rounded-[2rem] py-4 px-8 mt-4 shadow-md">
@@ -93,57 +93,108 @@
             </a>
         </div>
 
-        <div class="overflow-auto">
-            <div class="mx-auto w-fit">
-                <div class="text-black font-bold text-2xl text-center mt-20">داور ها</div>
-                <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
-                <table class="w-full mt-4 border-spacing-[1rem] border-separate">
-                    <thead class="text-white font-bold text-lg">
-                        <tr>
-                            <th>نقش</th>
-                            <th>نام</th>
-                            <th>کد پرسنلی</th>
-                            <th>شماره تماس</th>
-                            <th>جزئیات</th>
-                            <th>داوری</th>
-                            <th>حذف</th>
-                        </tr>
-                    </thead>
+        <div class="px-20 max-w-[100rem] mx-auto">
+            <div class="overflow-auto">
+                <div class="mx-auto w-full">
+                    <div class="text-black font-bold text-2xl text-center mt-20">داوری شهرستان</div>
+                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                    <table class="w-full mt-4 border-spacing-[1rem] border-separate">
+                        <thead class="text-white font-bold text-lg">
+                            <tr>
+                                <th>نقش</th>
+                                <th>نام</th>
+                                <th>کد پرسنلی</th>
+                                <th>شماره تماس</th>
+                                <th>جزئیات</th>
+                                <th>داوری</th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
 
-                    <tbody class="text-black font-bold text-lg text-center whitespace-nowrap">
-                        <tr v-for="(item, index) in research.referees">
-                            <td>
-                                داور
-                                {{ numbers[index] }}
-                            </td>
-                            <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
-                            <td>{{ item.personal_code }}</td>
-                            <td>{{ item.mobile }}</td>
-                            <td class="link">
-                                <span @click="refe = item; isRefe = true"
-                                    class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
-                            </td>
-                            <td class="link">
-                                <span v-if="referIndex == index"
-                                    @click="useAdmin().referee.value = null; referIndex = -1;"
-                                    class="cursor-pointer text-[#EE0035] block py-2">بستن</span>
-                                <span v-else @click="admin.getReferee(research.id, item.id); referIndex = index;"
-                                    class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
-                            </td>
-                            <td class="link">
-                                <span @click="deleteId = item.id; isDelete = true"
-                                    class="cursor-pointer text-[#EE0035] block py-2">حذف</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div v-if="research.level > 1"
-                    class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
-                    @click="isOpen = true">+
+                        <tbody class="text-black font-bold text-lg text-center whitespace-nowrap">
+                            <tr v-for="(item, index) in research.referees.filter(x => x.pivot.type == 0)">
+                                <td>
+                                    داور
+                                    {{ numbers[index] }}
+                                </td>
+                                <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
+                                <td>{{ item.personal_code }}</td>
+                                <td>{{ item.mobile }}</td>
+                                <td class="link">
+                                    <span @click="refe = item; isRefe = true"
+                                        class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
+                                </td>
+                                <td class="link">
+                                    <span v-if="referIndex == item.id"
+                                        @click="useAdmin().referee.value = null; referIndex = -1;"
+                                        class="cursor-pointer text-[#EE0035] block py-2">بستن</span>
+                                    <span v-else @click="admin.getReferee(research.id, item.id); referIndex = item.id;"
+                                        class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
+                                </td>
+                                <td class="link">
+                                    <span @click="deleteId = item.id; isDelete = true"
+                                        class="cursor-pointer text-[#EE0035] block py-2">حذف</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                        @click="isOpen = true; type = 0">+
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-auto mt-10">
+                <div class="mx-auto w-full">
+                    <div class="text-black font-bold text-2xl text-center mt-20">داوری استان</div>
+                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                    <table class="w-full mt-4 border-spacing-[1rem] border-separate">
+                        <thead class="text-white font-bold text-lg">
+                            <tr>
+                                <th>نقش</th>
+                                <th>نام</th>
+                                <th>کد پرسنلی</th>
+                                <th>شماره تماس</th>
+                                <th>جزئیات</th>
+                                <th>داوری</th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-black font-bold text-lg text-center whitespace-nowrap">
+                            <tr v-for="(item, index) in research.referees.filter(x => x.pivot.type == 1)">
+                                <td>
+                                    داور
+                                    {{ numbers[index] }}
+                                </td>
+                                <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
+                                <td>{{ item.personal_code }}</td>
+                                <td>{{ item.mobile }}</td>
+                                <td class="link">
+                                    <span @click="refe = item; isRefe = true"
+                                        class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
+                                </td>
+                                <td class="link">
+                                    <span v-if="referIndex == item.id"
+                                        @click="useAdmin().referee.value = null; referIndex = -1;"
+                                        class="cursor-pointer text-[#EE0035] block py-2">بستن</span>
+                                    <span v-else @click="admin.getReferee(research.id, item.id); referIndex = item.id;"
+                                        class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
+                                </td>
+                                <td class="link">
+                                    <span @click="deleteId = item.id; isDelete = true"
+                                        class="cursor-pointer text-[#EE0035] block py-2">حذف</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                        @click="isOpen = true; type = 1">+
+                    </div>
                 </div>
             </div>
         </div>
-
+        
         <template v-if="refer">
             <div class="overflow-auto">
                 <div class=" mx-auto w-fit">
@@ -245,7 +296,7 @@
                     <template
                         v-for="(item, index) in users.filter(x => x?.role_id == 3 && (x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search))">
                         <div v-if="index" class="h-[0.125rem] rounded-full bg-[#08B3B9] my-2"></div>
-                        <li @click="addR(item.id)"
+                        <li @click="addR(item.id, 0)"
                             class="flex items-center justify-between h-16 text-xl cursor-pointer hover:bg-[#A6EFF2] rounded-[1rem] px-4">
                             <span>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</span>
                             <span>{{ item.personal_code }}</span>
@@ -367,6 +418,7 @@ const levels = [
     'داوری شهرستان',
     'داوری استان'
 ]
+const type = ref(0)
 const referIndex = ref(-1)
 const isOpen = ref(false)
 const isDelete = ref(false)
@@ -483,10 +535,8 @@ const setOpinion = () => {
 }
 
 const addR = (refId) => {
-    let temp = []
-    for (let ref of research.value.referees) temp.push(ref.id)
-    temp.push(refId)
-    admin.addReferee({ referees: temp }, research.value.id)
+    console.log({ referees: refId, type });
+    admin.addReferee({ referees: refId, type: type.value }, research.value.id)
     isOpen.value = false
 }
 </script>

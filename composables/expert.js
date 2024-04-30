@@ -184,6 +184,7 @@ export const useExpert = () => {
     }
 
     const levelUp =  async (req,id) => {
+        return
         await useFetch(`https://37pajoohesh.ir/api/levelup/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()

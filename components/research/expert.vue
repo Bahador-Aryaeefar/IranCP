@@ -55,11 +55,11 @@
                 همکاران
                 <span>{{ research.partners }}</span>
             </li>
-            <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
+            <!-- <div class="rounded-full h-[0.125rem] bg-[#35B9BE] mt-2 -mx-4"></div>
             <li class="flex justify-between">
                 مرحله
                 <span>{{ levels[research.level] }}</span>
-            </li>
+            </li> -->
         </ul>
 
         <div class="bg-white rounded-[2rem] py-4 px-8 mt-4 shadow-md">
