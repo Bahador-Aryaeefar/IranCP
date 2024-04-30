@@ -93,11 +93,11 @@
             </a>
         </div>
 
-        <div class="px-20 max-w-[100rem] mx-auto">
+        <div class="px-20 max-w-[100rem] mx-auto whitespace-nowrap">
+            <div class="text-black font-bold text-2xl text-center mt-20 w-full">داوری شهرستان</div>
+            <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
             <div class="overflow-auto">
-                <div class="mx-auto w-full">
-                    <div class="text-black font-bold text-2xl text-center mt-20">داوری شهرستان</div>
-                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+                <div class="mx-auto w-fit min-w-full">
                     <table class="w-full mt-4 border-spacing-[1rem] border-separate">
                         <thead class="text-white font-bold text-lg">
                             <tr>
@@ -106,6 +106,7 @@
                                 <th>کد پرسنلی</th>
                                 <th>شماره تماس</th>
                                 <th>جزئیات</th>
+                                <th>نمره</th>
                                 <th>داوری</th>
                                 <th>حذف</th>
                             </tr>
@@ -124,6 +125,8 @@
                                     <span @click="refe = item; isRefe = true"
                                         class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
                                 </td>
+                                <td>{{ list?.filter(x => x.referee_id == item.id)[0]?.questions?.map(x => x.pivot.score
+                                    * x.factor)?.reduce((a, b) => a + b, 0) }}</td>
                                 <td class="link">
                                     <span v-if="referIndex == item.id"
                                         @click="useAdmin().referee.value = null; referIndex = -1;"
@@ -138,16 +141,24 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
-                        @click="isOpen = true; type = 0">+
-                    </div>
                 </div>
             </div>
+            <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                @click="isOpen = true; type = 0">+
+            </div>
+            <div
+                class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-4 mx-auto mb-2">
+                مجموع :
+                <span> {{ research.referees.filter(x => x.pivot.type == 0)?.map(item => {
+                    return list?.filter(x => x.referee_id == item.id)[0]?.questions?.map(x => x.pivot.score
+                        * x.factor)?.reduce((a, b) => a + b, 0)
+                })?.reduce((a, b) => a + b, 0) }}</span>
+            </div>
 
-            <div class="overflow-auto mt-10">
-                <div class="mx-auto w-full">
-                    <div class="text-black font-bold text-2xl text-center mt-20">داوری استان</div>
-                    <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+            <div class="text-black font-bold text-2xl text-center mt-20">داوری استان</div>
+            <div class="mt-4 h-[0.125rem] rounded-full bg-[#21C2C0]"></div>
+            <div class="overflow-auto">
+                <div class="mx-auto w-fit min-w-full">
                     <table class="w-full mt-4 border-spacing-[1rem] border-separate">
                         <thead class="text-white font-bold text-lg">
                             <tr>
@@ -156,6 +167,7 @@
                                 <th>کد پرسنلی</th>
                                 <th>شماره تماس</th>
                                 <th>جزئیات</th>
+                                <th>نمره</th>
                                 <th>داوری</th>
                                 <th>حذف</th>
                             </tr>
@@ -174,6 +186,8 @@
                                     <span @click="refe = item; isRefe = true"
                                         class="cursor-pointer text-[#08B3B9] block py-2">مشاهده</span>
                                 </td>
+                                <td>{{ list?.filter(x => x.referee_id == item.id)[0]?.questions?.map(x => x.pivot.score
+                                    * x.factor)?.reduce((a, b) => a + b, 0) }}</td>
                                 <td class="link">
                                     <span v-if="referIndex == item.id"
                                         @click="useAdmin().referee.value = null; referIndex = -1;"
@@ -188,13 +202,21 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
-                        @click="isOpen = true; type = 1">+
-                    </div>
                 </div>
             </div>
+            <div class="cursor-pointer block h-12 rounded-[1rem] bg-white text-[#21C2C0] border-[0.125rem] border-[#21C2C0] text-[2rem] font-bold w-full mt-4 pb-1 flex items-center justify-center"
+                @click="isOpen = true; type = 1">+
+            </div>
+            <div
+                class="bg-white shadow-md rounded-full flex justify-between items-center text-2xl py-3 px-10 font-bold mt-4 mx-auto mb-2">
+                مجموع :
+                <span> {{ research.referees.filter(x => x.pivot.type == 1)?.map(item => {
+                    return list?.filter(x => x.referee_id == item.id)[0]?.questions?.map(x => x.pivot.score
+                        * x.factor)?.reduce((a, b) => a + b, 0)
+                })?.reduce((a, b) => a + b, 0) }}</span>
+            </div>
         </div>
-        
+
         <template v-if="refer">
             <div class="overflow-auto">
                 <div class=" mx-auto w-fit">
@@ -306,8 +328,6 @@
             </div>
         </div>
 
-
-
         <div v-if="isDelete"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
             @click="isDelete = false">
@@ -330,8 +350,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div v-if="isRefe"
             class=" overflow-hidden fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] flex items-center justify-center break-words"
@@ -539,6 +557,47 @@ const addR = (refId) => {
     admin.addReferee({ referees: refId, type: type.value }, research.value.id)
     isOpen.value = false
 }
+
+const toast = useToast()
+const list = ref([])
+watch(() => research.value, async (newval, oldval) => {
+    referIndex.value = -1
+    if (!newval?.referees) return
+    list.value = []
+    for (let referee of newval?.referees) {
+        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}/referee/${referee.id}`, {
+            onRequest({ request, options }) {
+                toast.addLoad()
+                console.log('get referee')
+                options.headers = {
+                    "Accept": "application/json"
+                }
+                options.method = 'GET'
+                options.headers.Authorization = 'Bearer ' + useCookie('token').value
+            },
+            onRequestError({ request, options, error, response }) {
+                // Handle the request errors
+                toast.clearLoad()
+                toast.addError("referee: " + error)
+            },
+            onResponse({ request, response, options }) {
+                // Process the response data    return response._data
+                toast.clearLoad()
+                console.log(response)
+                if (response.status == 200 || response.status == 201) {
+                    list.value.push(response._data)
+                    console.log(list.value);
+                }
+            },
+            onResponseError({ request, response, options }) {
+                // Handle the response errors 
+                toast.addError("referee: " + response._data.data)
+            },
+            initialCache: false,
+            server: false
+        })
+    }
+})
 </script>
 
 <style scoped>
