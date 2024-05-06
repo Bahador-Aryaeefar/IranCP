@@ -13,7 +13,7 @@
         <div v-if="isLogo"
             class="overflow-hidden z-[10] fixed px-4 py-6 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] flex items-center justify-center break-words"
             @click="isLogo = false">
-            <div class="w-[60rem] mobile:w-[30rem] bg-white rounded-[2rem] overflow-auto max-h-[98vh]" @click.stop="">
+            <div class="w-[80rem] mobile:w-[30rem] bg-white rounded-[2rem] overflow-auto max-h-[98vh]" @click.stop="">
                 <img class="w-full mobile:hidden" src="/logo.jpg" alt="logo">
                 <img class="w-full hidden mobile:block" src="/logoMobile.jpg" alt="logo">
             </div>
