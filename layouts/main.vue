@@ -10,6 +10,15 @@
             </div>
         </div>
 
+        <div v-if="isLogo"
+            class="overflow-hidden z-[10] fixed px-4 py-6 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] flex items-center justify-center break-words"
+            @click="isLogo = false">
+            <div class="w-[60rem] mobile:w-[30rem] bg-white rounded-[2rem] overflow-auto max-h-[98vh]" @click.stop="">
+                <img class="w-full mobile:hidden" src="/logo.jpg" alt="logo">
+                <img class="w-full hidden mobile:block" src="/logoMobile.jpg" alt="logo">
+            </div>
+        </div>
+
         <div v-if="toast.load.value"
             class="fixed left-0 top-0 w-full h-full bg-[#00000040] backdrop-blur-[0.125rem] z-[199] flex items-center justify-center break-words">
             <div class="w-[50rem] bg-white rounded-[1rem] mx-4">
@@ -64,7 +73,7 @@
             </div>
         </div>
 
-        <div v-if="toast.showSuccess.value&& !toast.showWarning.value && !toast.showError.value"
+        <div v-if="toast.showSuccess.value && !toast.showWarning.value && !toast.showError.value"
             class="fixed px-4 left-0 top-0 w-full h-full bg-[#0000004D] backdrop-blur-[0.125rem] z-[200] flex items-center justify-center pb-20 break-words"
             @click="toast.clearSuccess">
             <div class="w-[60rem] bg-white rounded-[0.5rem] p-6 pt-10 pb-6" @click.stop="">
@@ -91,6 +100,7 @@ useHead({
 })
 
 const toast = useToast()
+const { isLogo } = useToast()
 </script>
 
 <style>
