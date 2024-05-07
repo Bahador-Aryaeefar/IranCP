@@ -31,7 +31,7 @@
 
                 <tbody class="text-black font-bold text-lg whitespace-nowrap text-center">
                     <tr
-                        v-for="item,index in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x.last_name) ? x.last_name : '')).includes(search) || x.personal_code.includes(search))).filter(x => useUser().user.value.id != x.id)">
+                        v-for="item,index in users?.filter(x => isRole(x.role_id) && ((x.name + ' ' + ((x?.last_name) ? x?.last_name : ''))?.includes(search) || x?.personal_code?.includes(search))).filter(x => useUser().user.value.id != x.id)">
                         <td>{{ index+1 }}</td>
                         <td>{{ (item.name + ' ' + ((item.last_name) ? item.last_name : '')) }}</td>
                         <td>{{ item.personal_code }}</td>
@@ -155,15 +155,20 @@ const isRole = (ro) => {
     switch (ro) {
         case 1:
         case 2:
+        case "1":
+        case "2":
             if (role.value == "مدیر") return true
             else return false
         case 3:
+        case "3":
             if (role.value == "داور") return true
             else return false
         case 4:
+        case "4":
             if (role.value == "کارشناس") return true
             else return false
         case 5:
+        case "5":
             if (role.value == "دبیر") return true
             else return false
     }
