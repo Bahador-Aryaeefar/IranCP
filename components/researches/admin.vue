@@ -30,7 +30,7 @@
                     <tr v-for="item,index in researches?.filter(x => x.name.includes(search) || x.user.personal_code.includes(search))">
                         <td>{{ index+1 }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.user.personal_code }}</td>
+                        <td>{{ item?.user?.personal_code }}</td>
                         <td>{{ cities.searchProvince(item.province_id)?.title }}</td>
                         <td>{{ cities.searchCity(item.city_id)?.title }}</td>
                         <td>{{ categories[item.category_id - 1] }}</td>

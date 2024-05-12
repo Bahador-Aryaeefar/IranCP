@@ -12,7 +12,7 @@ export const useAuth = () => {
     }
 
     const login = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/login', {
+        await useFetch(`${useBase().url}/api/login`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('login')
@@ -51,7 +51,7 @@ export const useAuth = () => {
     }
 
     const register = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/register', {
+        await useFetch(`${useBase().url}/api/register`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('register')
@@ -84,7 +84,7 @@ export const useAuth = () => {
     }
 
     const registerTeacher = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/registerTeacher', {
+        await useFetch(`${useBase().url}/api/registerTeacher`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('register teacher')
@@ -120,7 +120,7 @@ export const useAuth = () => {
     }
 
     const update = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/user/update', {
+        await useFetch(`${useBase().url}/api/user/update`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('register teacher')

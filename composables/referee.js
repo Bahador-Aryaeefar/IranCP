@@ -7,7 +7,7 @@ export const useReferee = () => {
 
     const getResearches = async (req) => {
         researches.value = null
-        await useFetch('https://37pajoohesh.ir/api/referee/research', {
+        await useFetch(`${useBase().url}/api/referee/research`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get researches')
@@ -43,7 +43,7 @@ export const useReferee = () => {
     const getResearch = async (id) => {
         research.value = null
         questions.value = null
-        await useFetch(`https://37pajoohesh.ir/api/referee/research/${id}`, {
+        await useFetch(`${useBase().url}/api/referee/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get research')
@@ -79,7 +79,7 @@ export const useReferee = () => {
 
     const getQuestions = async (id) => {
         questions.value = null
-        await useFetch(`https://37pajoohesh.ir/api/referee/questions`, {
+        await useFetch(`${useBase().url}/api/referee/questions`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get questions')
@@ -113,7 +113,7 @@ export const useReferee = () => {
     }
 
     const setScore = async (req, id, id2) => {
-        await useFetch(`https://37pajoohesh.ir/api/referee/research/score/${id}`, {
+        await useFetch(`${useBase().url}/api/referee/research/score/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('set score')
@@ -149,7 +149,7 @@ export const useReferee = () => {
 
     const levelUp =  async (req,id) => {
         return
-        await useFetch(`https://37pajoohesh.ir/api/levelup/${id}`, {
+        await useFetch(`${useBase().url}/api/levelup/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('levelUp')
@@ -184,7 +184,7 @@ export const useReferee = () => {
 
     const setOpinion = async (req, id, id2) => {
         questions.value = null
-        await useFetch(`https://37pajoohesh.ir/api/referee/research/${id}/opinion`, {
+        await useFetch(`${useBase().url}/api/referee/research/${id}/opinion`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('set opinions')

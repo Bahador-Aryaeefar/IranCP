@@ -12,7 +12,7 @@ export const useAdmin = () => {
 
     const getUsers = async (req) => {
         users.value = null
-        await useFetch('https://37pajoohesh.ir/api/admin/user', {
+        await useFetch(`${useBase().url}/api/admin/user`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get users')
@@ -46,7 +46,7 @@ export const useAdmin = () => {
 
     const getUser = async (id) => {
         user.value = null
-        await useFetch(`https://37pajoohesh.ir/api/admin/user/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/user/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get user')
@@ -79,7 +79,7 @@ export const useAdmin = () => {
     }
 
     const changeUser = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/user/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/user/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change users')
@@ -114,7 +114,7 @@ export const useAdmin = () => {
     }
 
     const deleteUser = async (id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/user/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/user/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('delete users')
@@ -148,7 +148,7 @@ export const useAdmin = () => {
 
     const getResearches = async (req) => {
         researches.value = null
-        await useFetch('https://37pajoohesh.ir/api/admin/research', {
+        await useFetch(`${useBase().url}/api/admin/research`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get researches')
@@ -183,7 +183,7 @@ export const useAdmin = () => {
     const getResearch = async (id) => {
         research.value = null
         referee.value = null
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get research')
@@ -217,7 +217,7 @@ export const useAdmin = () => {
 
     const levelUp =  async (req,id) => {
         return
-        await useFetch(`https://37pajoohesh.ir/api/levelup/${id}`, {
+        await useFetch(`${useBase().url}/api/levelup/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('levelUp')
@@ -252,7 +252,7 @@ export const useAdmin = () => {
     }
 
     const changeResearch = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/researchUpdate/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/researchUpdate/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change research')
@@ -287,7 +287,7 @@ export const useAdmin = () => {
     }
 
     const deleteResearch = async (id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('delete research')
@@ -321,7 +321,7 @@ export const useAdmin = () => {
 
     const getCoords = async (req) => {
         coords.value = null
-        await useFetch('https://37pajoohesh.ir/api/admin/coordinate', {
+        await useFetch(`${useBase().url}/api/admin/coordinate`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get coords')
@@ -354,7 +354,7 @@ export const useAdmin = () => {
     }
 
     const addCoords = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/admin/coordinate', {
+        await useFetch(`${useBase().url}/api/admin/coordinate`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('add coords')
@@ -388,7 +388,7 @@ export const useAdmin = () => {
     }
 
     const changeCoords = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/coordinate/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/coordinate/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change coord')
@@ -422,7 +422,7 @@ export const useAdmin = () => {
     }
 
     const deleteCoords = async (id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/coordinate/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/coordinate/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('delete coord')
@@ -456,7 +456,7 @@ export const useAdmin = () => {
 
     const getQuestions = async (req) => {
         questions.value = null
-        await useFetch('https://37pajoohesh.ir/api/admin/question', {
+        await useFetch(`${useBase().url}/api/admin/question`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get questions')
@@ -489,7 +489,7 @@ export const useAdmin = () => {
     }
 
     const addQuestions = async (req) => {
-        await useFetch('https://37pajoohesh.ir/api/admin/question', {
+        await useFetch(`${useBase().url}/api/admin/question`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('add questions')
@@ -523,7 +523,7 @@ export const useAdmin = () => {
     }
 
     const changeQuestions = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/question/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/question/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('change questions')
@@ -557,7 +557,7 @@ export const useAdmin = () => {
     }
 
     const deleteQuestions = async (id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/question/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/question/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('delete questions')
@@ -590,7 +590,7 @@ export const useAdmin = () => {
     }
 
     const addReferee = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/research/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('add referee')
@@ -625,7 +625,7 @@ export const useAdmin = () => {
 
     const getReferee = async (id, refid) => {
         referee.value = null
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}/referee/${refid}`, {
+        await useFetch(`${useBase().url}/api/admin/research/${id}/referee/${refid}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('get referee')
@@ -659,7 +659,7 @@ export const useAdmin = () => {
     }
 
     const deleteReferee = async (req, id) => {
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/delete/referee/${id}`, {
+        await useFetch(`${useBase().url}/api/admin/research/delete/referee/${id}`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('delete referee')
@@ -694,7 +694,7 @@ export const useAdmin = () => {
 
     const setOpinion = async (req, id, id2,id3) => {
         questions.value = null
-        await useFetch(`https://37pajoohesh.ir/api/admin/research/${id}/opinion`, {
+        await useFetch(`${useBase().url}/api/admin/research/${id}/opinion`, {
             onRequest({ request, options }) {
                 toast.addLoad()
                 console.log('set opinions')

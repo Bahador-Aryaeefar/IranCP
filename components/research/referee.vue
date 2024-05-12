@@ -12,7 +12,7 @@
             <div v-if="!research.file_image" class="w-[20rem] h-[20rem] border-[0.2em] rounded-[2rem] mx-auto mt-8">
             </div>
             <img v-else class="mt-8 rounded-[2rem] shadow-md mx-auto w-full max-w-[20rem] border-[0.2em]"
-                :src="`https://37pajoohesh.ir/images/research/${research.file_image}`" alt="book">
+                :src="`${useBase().url}/images/research/${research.file_image}`" alt="book">
             <h1 class="text-center text-[2rem] text-bold mt-2">
                 {{ research.name }}
             </h1>
@@ -77,7 +77,7 @@
                 </p>
             </div>
 
-            <a v-if="research.file" :href="`https://37pajoohesh.ir/files/${research.file}`" target="_blank"
+            <a v-if="research.file" :href="`${useBase().url}/files/${research.file}`" target="_blank"
                 class="mt-8 rounded-full h-16 bg-[#57C5C6] flex items-center justify-between px-6">
                 <div class="text-white font-bold text-2xl">
                     دانلود فایل
